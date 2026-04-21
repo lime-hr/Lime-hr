@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>LIMĒ · Оценка потенциала</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700&family=Onest:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:#0e0e0e; --white:#fafaf8; --off:#f2f0eb; --mid:#e8e4dc;
+  --muted:#9a9488; --text:#1c1b18; --text2:#6b6860;
+  --lime:#c8e63c; --lime-dark:#a0bc20; --lime-pale:#eef6c0;
+  --r:12px; --rs:8px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--off);color:var(--text);font-family:'Onest',sans-serif;font-size:14px;line-height:1.6;min-height:100vh}
+
+.header{background:var(--black);padding:20px 24px 18px;position:sticky;top:0;z-index:100}
+.header-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-family:'Unbounded',sans-serif;font-size:15px;font-weight:700;color:var(--lime);letter-spacing:.02em;flex-shrink:0}
+.header-title{font-size:12px;color:rgba(255,255,255,.45);text-align:right}
+.header-title strong{color:rgba(255,255,255,.85);display:block;font-weight:500;font-size:13px}
+
+.main-nav{background:var(--black);border-top:1px solid rgba(255,255,255,.06);padding:0 24px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+.main-nav::-webkit-scrollbar{display:none}
+.mnav-btn{font-family:'Onest',sans-serif;font-size:12px;font-weight:500;color:rgba(255,255,255,.4);padding:13px 16px 11px;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
+.mnav-btn:hover{color:rgba(255,255,255,.75)}
+.mnav-btn.on{color:var(--lime);border-bottom-color:var(--lime)}
+
+.page{display:none}.page.on{display:block}
+.container{max-width:960px;margin:0 auto;padding:24px 20px 60px}
+
+.hero{background:var(--black);border-radius:var(--r);padding:24px 24px 20px;margin-bottom:20px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;background:var(--lime);opacity:.06;border-radius:50%}
+.hero-tag{display:inline-block;background:var(--lime);color:var(--black);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:99px;margin-bottom:10px}
+.hero-title{font-family:'Unbounded',sans-serif;font-size:clamp(16px,4vw,22px);font-weight:600;color:var(--white);line-height:1.25;margin-bottom:10px}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;max-width:580px}
+
+/* CRITERIA */
+.crit-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.cpill{display:flex;align-items:center;gap:7px;padding:9px 14px 9px 10px;border-radius:99px;border:1.5px solid var(--mid);background:var(--white);cursor:pointer;transition:all .15s;font-size:12px;font-weight:500;color:var(--text2)}
+.cpill:hover{transform:translateY(-1px)}
+.cpill.on{border-color:var(--active-c);color:var(--active-c);background:var(--active-bg)}
+.cpill .pill-icon{font-size:16px;line-height:1}
+.cpill .pill-w{font-size:10px;opacity:.6;font-weight:400;margin-left:2px}
+
+.crit-card{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.crit-card-head{padding:20px 22px 16px;border-bottom:1px solid var(--mid);display:flex;gap:14px;align-items:flex-start}
+.head-icon{font-size:32px;line-height:1;flex-shrink:0;margin-top:2px}
+.head-name{font-family:'Unbounded',sans-serif;font-size:16px;font-weight:600;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.head-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;letter-spacing:.04em;font-family:'Onest',sans-serif}
+.head-def{font-size:13px;color:var(--text2);line-height:1.55}
+.crit-body{padding:20px 22px;display:flex;flex-direction:column;gap:22px}
+.slabel{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+
+.scale-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+@media(max-width:520px){.scale-grid{grid-template-columns:1fr}}
+.scale-item{border-radius:var(--rs);padding:12px 13px}
+.scale-num{font-family:'Unbounded',sans-serif;font-size:26px;font-weight:700;line-height:1;margin-bottom:4px}
+.scale-lbl{font-size:12px;font-weight:600;margin-bottom:5px}
+.scale-desc{font-size:11px;line-height:1.5;opacity:.85}
+.s1{background:#FCEBEB;color:#7A1E1E}.s2{background:#FEF3E2;color:#7A4A0A}.s3{background:#EAF3DE;color:#275010}
+
+.q-list{display:flex;flex-direction:column;gap:7px}
+.q-item{display:flex;gap:10px;padding:11px 13px;background:var(--off);border-radius:var(--rs);align-items:flex-start}
+.q-n{width:20px;height:20px;border-radius:50%;background:var(--active-c,#333);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:white;flex-shrink:0;margin-top:1px}
+.q-text{font-size:13px;color:var(--text);line-height:1.5}
+.q-note{font-size:11px;color:var(--text2);margin-top:3px;padding-left:10px;border-left:2px solid var(--mid)}
+
+.ev-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:480px){.ev-grid{grid-template-columns:1fr}}
+.ev-card{border-radius:var(--rs);padding:12px 13px}
+.ev-yes{background:#EAF3DE}.ev-no{background:#FCEBEB}
+.ev-head{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px}
+.ev-yes .ev-head{color:#275010}.ev-no .ev-head{color:#7A1E1E}
+.ev-item{font-size:11.5px;line-height:1.55;padding-left:12px;position:relative;margin-bottom:3px}
+.ev-item::before{content:'';position:absolute;left:0;top:8px;width:4px;height:4px;border-radius:50%;background:currentColor;opacity:.45}
+.ev-yes .ev-item{color:#275010}.ev-no .ev-item{color:#7A1E1E}
+
+.trap-list{display:flex;flex-direction:column;gap:6px}
+.trap{display:flex;gap:9px;align-items:flex-start;padding:10px 13px;background:#FFFBF0;border:1px solid #F5DFA0;border-radius:var(--rs)}
+.trap-ico{font-size:14px;flex-shrink:0;margin-top:1px}
+.trap-txt{font-size:12px;color:#6B4800;line-height:1.5}
+
+/* ══ GATE PAGE ══════════════════════════════════════════ */
+.gate-alert{background:#FCEBEB;border:1.5px solid #F09595;border-radius:var(--r);padding:16px 20px;margin-bottom:20px;display:flex;gap:12px;align-items:flex-start}
+.gate-alert-ico{font-size:22px;flex-shrink:0}
+.gate-alert-txt{font-size:13px;color:#5A1010;line-height:1.6}
+.gate-alert-txt strong{color:#A32D2D}
+
+.gate-block{background:var(--white);border-radius:var(--r);overflow:hidden;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.gate-block-head{padding:16px 20px;border-bottom:1px solid var(--mid);display:flex;align-items:flex-start;gap:12px}
+.gate-block-ico{font-size:24px;flex-shrink:0}
+.gate-block-title{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px}
+.gate-block-def{font-size:12px;color:var(--text2);line-height:1.5}
+.gate-block-body{padding:18px 20px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.gate-block-body{grid-template-columns:1fr}}
+
+.flag-col{}
+.flag-col-head{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.flag-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.flag-col-title{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.flag-green .flag-dot{background:#4CAF50}.flag-green .flag-col-title{color:#275010}
+.flag-red   .flag-dot{background:#E53935}.flag-red   .flag-col-title{color:#A32D2D}
+
+.flag-item{display:flex;gap:9px;align-items:flex-start;padding:8px 10px;border-radius:var(--rs);margin-bottom:5px}
+.flag-item:last-child{margin-bottom:0}
+.flag-green .flag-item{background:#EAF3DE}
+.flag-red   .flag-item{background:#FCEBEB}
+.flag-item-ico{font-size:13px;flex-shrink:0;margin-top:1px}
+.flag-item-txt{font-size:12px;line-height:1.45}
+.flag-green .flag-item-txt{color:#1B4A0A}
+.flag-red   .flag-item-txt{color:#6B1010}
+
+/* NUANCE BLOCK */
+.nuance-block{background:var(--white);border-radius:var(--r);padding:18px 20px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.nuance-title{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px}
+.nuance-sub{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:16px}
+
+.nuance-cases{display:flex;flex-direction:column;gap:8px}
+.ncase{border-radius:var(--rs);overflow:hidden;border:1.5px solid transparent}
+.ncase-head{padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.ncase-head:hover{filter:brightness(.97)}
+.ncase-verdict{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;font-family:'Unbounded',sans-serif}
+.ncase-situation{font-size:12px;font-weight:500;line-height:1.4;flex:1;color:var(--text)}
+.ncase-tag{font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;letter-spacing:.04em;white-space:nowrap}
+.ncase-body{display:none;padding:10px 14px 14px;font-size:12px;line-height:1.6}
+.ncase.open .ncase-body{display:block}
+.ncase-chevron{font-size:10px;color:var(--muted);transition:transform .2s;flex-shrink:0}
+.ncase.open .ncase-chevron{transform:rotate(180deg)}
+
+.ncase-yes{background:#F0F9E8;border-color:#A5D87A}
+.ncase-yes .ncase-verdict{background:#EAF3DE;color:#275010}
+.ncase-yes .ncase-tag{background:#EAF3DE;color:#275010}
+.ncase-yes .ncase-body{color:#1B4A0A}
+
+.ncase-no{background:#FEF2F2;border-color:#F5A0A0}
+.ncase-no .ncase-verdict{background:#FCEBEB;color:#A32D2D}
+.ncase-no .ncase-tag{background:#FCEBEB;color:#A32D2D}
+.ncase-no .ncase-body{color:#6B1010}
+
+.ncase-no2{background:#FFF8F0;border-color:#F5C87A}
+.ncase-no2 .ncase-verdict{background:#FAEEDA;color:#854F0B}
+.ncase-no2 .ncase-tag{background:#FAEEDA;color:#854F0B}
+.ncase-no2 .ncase-body{color:#5A3008}
+
+.perc-rule{background:var(--black);border-radius:var(--r);padding:16px 20px;margin-bottom:14px;display:flex;gap:14px;align-items:flex-start}
+.perc-rule-ico{font-size:22px;flex-shrink:0}
+.perc-rule-body{}
+.perc-rule-title{font-size:13px;font-weight:600;color:var(--lime);margin-bottom:5px}
+.perc-rule-txt{font-size:12px;color:rgba(255,255,255,.6);line-height:1.6}
+.perc-bar{display:flex;border-radius:var(--rs);overflow:hidden;margin:12px 0 6px;height:28px}
+.pb-no{background:#E53935;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;letter-spacing:.04em}
+.pb-yes{background:var(--lime);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--black);letter-spacing:.04em}
+.perc-labels{display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,.4)}
+
+.gate-rule-final{background:var(--black);border-radius:var(--r);padding:16px 20px;display:flex;gap:12px;align-items:flex-start}
+.gate-rule-ico{font-size:20px;flex-shrink:0}
+.gate-rule-txt{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.6}
+.gate-rule-txt strong{color:var(--lime)}
+
+/* ══ PERFORMANCE PAGE ═══════════════════════════════════ */
+.perf-intro{background:var(--white);border-radius:var(--r);padding:18px 20px;margin-bottom:16px;border-left:4px solid var(--lime);font-size:13px;color:var(--text2);line-height:1.6;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.perf-intro strong{color:var(--text)}
+
+.perf-scale{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:520px){.perf-scale{grid-template-columns:1fr}}
+.ps-card{border-radius:var(--r);padding:16px 16px 14px;position:relative;overflow:hidden}
+.ps-low{background:#FCEBEB;border:1.5px solid #F09595}
+.ps-mid{background:#FEF3E2;border:1.5px solid #F5C87A}
+.ps-high{background:#EAF3DE;border:1.5px solid #A5D87A}
+.ps-pct{font-family:'Unbounded',sans-serif;font-size:22px;font-weight:700;margin-bottom:4px}
+.ps-low .ps-pct{color:#A32D2D}.ps-mid .ps-pct{color:#854F0B}.ps-high .ps-pct{color:#275010}
+.ps-label{font-size:13px;font-weight:600;margin-bottom:6px}
+.ps-low .ps-label{color:#7A1E1E}.ps-mid .ps-label{color:#7A4A0A}.ps-high .ps-label{color:#1B4A0A}
+.ps-desc{font-size:11.5px;line-height:1.5}
+.ps-low .ps-desc{color:#7A1E1E}.ps-mid .ps-desc{color:#7A4A0A}.ps-high .ps-desc{color:#1B4A0A}
+.ps-action{display:inline-block;margin-top:8px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;letter-spacing:.04em}
+.ps-low .ps-action{background:#F09595;color:#5A1010}
+.ps-mid .ps-action{background:#F5C87A;color:#5A3008}
+.ps-high .ps-action{background:#A5D87A;color:#1B4A0A}
+
+.perf-block{background:var(--white);border-radius:var(--r);overflow:hidden;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.perf-block-head{padding:14px 18px;border-bottom:1px solid var(--mid);background:var(--off)}
+.perf-block-title{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:600;color:var(--text)}
+.perf-block-sub{font-size:11px;color:var(--text2);margin-top:2px}
+.perf-block-body{padding:16px 18px}
+
+.perf-q-grid{display:flex;flex-direction:column;gap:6px}
+.perf-q{display:flex;gap:10px;padding:10px 13px;background:var(--off);border-radius:var(--rs);align-items:flex-start}
+.perf-q-dot{width:6px;height:6px;border-radius:50%;background:var(--lime-dark);flex-shrink:0;margin-top:6px}
+.perf-q-txt{font-size:12.5px;color:var(--text);line-height:1.5}
+.perf-q-note{font-size:11px;color:var(--text2);margin-top:3px}
+
+.perf-context-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:480px){.perf-context-grid{grid-template-columns:1fr}}
+.ctx-card{border-radius:var(--rs);padding:11px 13px;background:var(--off)}
+.ctx-card-title{font-size:11px;font-weight:600;color:var(--text);margin-bottom:5px}
+.ctx-card-items{font-size:11px;color:var(--text2);line-height:1.7}
+
+.perf-trap{background:#FFFBF0;border:1px solid #F5DFA0;border-radius:var(--rs);padding:10px 13px;margin-bottom:6px;display:flex;gap:9px;align-items:flex-start}
+.perf-trap:last-child{margin-bottom:0}
+.perf-trap-ico{font-size:13px;flex-shrink:0;margin-top:1px}
+.perf-trap-txt{font-size:12px;color:#6B4800;line-height:1.5}
+
+/* HOW PAGE */
+.steps{display:flex;flex-direction:column;gap:10px}
+.step{display:flex;gap:14px;background:var(--white);border-radius:var(--r);padding:16px 18px;align-items:flex-start;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--black);color:var(--lime);font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.step-desc{font-size:12.5px;color:var(--text2);line-height:1.55}
+.step-desc em{color:var(--text);font-style:italic}
+.rule-final{background:var(--black);border-radius:var(--r);padding:18px 20px;margin-top:14px;display:flex;gap:12px;align-items:flex-start}
+.rule-final-ico{font-size:20px;flex-shrink:0}
+.rule-final-txt{font-size:13px;color:rgba(255,255,255,.65);line-height:1.6}
+.rule-final-txt strong{color:var(--lime)}
+
+@media(max-width:600px){
+  .header-inner{flex-direction:column;align-items:flex-start;gap:4px}
+  .header-title{text-align:left}
+  .crit-row{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+  .crit-row::-webkit-scrollbar{display:none}
+  .cpill{flex-shrink:0}
+  .container{padding:16px 14px 60px}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo">LIMĒ</div>
+    <div class="header-title">
+      <strong>Оценка потенциала</strong>
+      Гайд для руководителя · Talent Review 2026
+    </div>
+  </div>
+</div>
+
+<nav class="main-nav">
+  <button class="mnav-btn on"  onclick="showPage('criteria',this)">Критерии потенциала</button>
+  <button class="mnav-btn"     onclick="showPage('perf',this)">Результативность</button>
+  <button class="mnav-btn"     onclick="showPage('gate',this)">Gate-фильтр</button>
+  <button class="mnav-btn"     onclick="showPage('how',this)">Как думать правильно</button>
+</nav>
+
+<!-- ════════════════════════════ CRITERIA -->
+<div class="page on" id="p-criteria">
+<div class="container">
+  <div class="hero">
+    <div class="hero-tag">5 критериев · Шкала 1→2→3</div>
+    <div class="hero-title">Как оценить потенциал<br>за 30–90 дней</div>
+    <div class="hero-sub">Оцениваем только то, что реально видели. Конкретные факты и поведение — не общее впечатление и не прошлые заслуги.</div>
+  </div>
+  <div class="crit-row" id="crit-row"></div>
+  <div class="crit-card" id="crit-card"></div>
+</div>
+</div>
+
+<!-- ════════════════════════════ PERFORMANCE -->
+<div class="page" id="p-perf">
+<div class="container">
+  <div class="hero">
+    <div class="hero-tag">Результативность · ЧТО</div>
+    <div class="hero-title">Как оценить результат</div>
+    <div class="hero-sub">Результативность — это «ЧТО» достиг человек. Оцениваем по % выполнения целей: месяц, сезон, квартал или год — смотрим по тому горизонту, который актуален.</div>
+  </div>
+
+  <div class="perf-intro">
+    <strong>Три уровня результативности в LIME:</strong> Ниже 80% — низкий, 80–94% — средний, 95% и выше — высокий. Это не субъективная оценка — это математика от выполнения целей. Если цели не были поставлены или не оцифрованы, результативность не может быть «высокой».
+  </div>
+
+  <div class="perf-scale">
+    <div class="ps-card ps-low">
+      <div class="ps-pct">&lt;80%</div>
+      <div class="ps-label">Низкий</div>
+      <div class="ps-desc">Цели не выполнены. Требует постоянного контроля. Возможен разрыв между усилиями и результатом.</div>
+      <div class="ps-action">→ PIP при системном характере</div>
+    </div>
+    <div class="ps-card ps-mid">
+      <div class="ps-pct">80–94%</div>
+      <div class="ps-label">Средний</div>
+      <div class="ps-desc">Выполняет план. Стабилен и предсказуем. Не всегда превосходит ожидания, но надёжен.</div>
+      <div class="ps-action">→ Поддерживать и развивать</div>
+    </div>
+    <div class="ps-card ps-high">
+      <div class="ps-pct">≥95%</div>
+      <div class="ps-label">Высокий</div>
+      <div class="ps-desc">Стабильно превосходит KPI. Берётся за сложное. Надёжен даже в нестандартных ситуациях.</div>
+      <div class="ps-action">→ Инвестировать в развитие</div>
+    </div>
+  </div>
+
+  <div class="perf-block">
+    <div class="perf-block-head">
+      <div class="perf-block-title">Вопросы себе перед оценкой</div>
+      <div class="perf-block-sub">Задай их прежде, чем выставить уровень результативности</div>
+    </div>
+    <div class="perf-block-body">
+      <div class="perf-q-grid">
+        <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Какой % выполнения целей за период — месяц, сезон, квартал?</div><div class="perf-q-note">→ Считаем по факту, не по ощущению</div></div></div>
+        <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Были ли цели поставлены чётко и оцифрованы до начала периода?</div><div class="perf-q-note">→ Если нет — результативность нельзя оценить выше «средней»</div></div></div>
+        <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Была ли динамика стабильной — или один хороший месяц на фоне трёх слабых?</div><div class="perf-q-note">→ Оцениваем тренд, не пик</div></div></div>
+        <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Если были внешние факторы (сезон, изменение рынка, новый продукт) — учёл ли я их при расчёте?</div><div class="perf-q-note">→ Контекст влияет на оценку, но не отменяет её</div></div></div>
+        <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Есть ли задачи или проекты без цифровых KPI — как я оцениваю их выполнение?</div><div class="perf-q-note">→ Качественные цели тоже нужно оцифровать: сделано/не сделано, в срок/нет</div></div></div>
+        <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Мог ли сотрудник повлиять на результат — или это было вне его зоны контроля?</div><div class="perf-q-note">→ Оцениваем только то, на что он реально влиял</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="perf-block">
+    <div class="perf-block-head">
+      <div class="perf-block-title">Что учитывать в контексте</div>
+      <div class="perf-block-sub">Факторы, которые влияют на интерпретацию результата</div>
+    </div>
+    <div class="perf-block-body">
+      <div class="perf-context-grid">
+        <div class="ctx-card">
+          <div class="ctx-card-title">Повышает оценку 🔼</div>
+          <div class="ctx-card-items">
+            Цели были амбициозные, выше рынка<br>
+            Сложный период: запуск, кризис, ротация<br>
+            Взял дополнительные задачи поверх KPI<br>
+            Помогал команде выполнить общий результат
+          </div>
+        </div>
+        <div class="ctx-card">
+          <div class="ctx-card-title">Не оправдывает результат 🚫</div>
+          <div class="ctx-card-items">
+            «Все так работают» — не аргумент<br>
+            Личные обстоятельства вне рабочего влияния<br>
+            «Цели были нереалистичные» — нужно было поднять вопрос раньше<br>
+            Отсутствие инструментов без запроса о помощи
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="perf-block">
+    <div class="perf-block-head">
+      <div class="perf-block-title">Ловушки оценки результативности</div>
+    </div>
+    <div class="perf-block-body">
+      <div class="perf-trap"><div class="perf-trap-ico">⚠</div><div class="perf-trap-txt"><strong>Симпатия vs результат.</strong> «Он очень старался» — это не результативность. Оцениваем факт, а не усилие. Усилие — в разговоре о развитии.</div></div>
+      <div class="perf-trap"><div class="perf-trap-ico">⚠</div><div class="perf-trap-txt"><strong>Один пик закрывает провал.</strong> Декабрь — блестящий, остальные 11 месяцев — ниже плана. Итог — средний или низкий, не высокий.</div></div>
+      <div class="perf-trap"><div class="perf-trap-ico">⚠</div><div class="perf-trap-txt"><strong>Высокий потенциал = высокий результат.</strong> Нет. Это разные оси. Человек может быть HiPo с текущим средним результатом — например на новой роли или в сложном периоде.</div></div>
+      <div class="perf-trap"><div class="perf-trap-ico">⚠</div><div class="perf-trap-txt"><strong>Нет цифр — значит «высокий».</strong> Нет. Если цели не были оцифрованы — результативность по умолчанию «средняя». Это стимул ставить измеримые цели на следующий период.</div></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════════════════════ GATE -->
+<div class="page" id="p-gate">
+<div class="container">
+  <div class="hero">
+    <div class="hero-tag">Обязательный фильтр</div>
+    <div class="hero-title">Gate — ДА или НЕТ</div>
+    <div class="hero-sub">Проверяется до любых критериев потенциала. Два параметра: Целостность и Профессионализм. Одно НЕТ — HiPo невозможен вне зависимости от оценок по критериям.</div>
+  </div>
+
+  <div class="gate-alert">
+    <div class="gate-alert-ico">🔒</div>
+    <div class="gate-alert-txt"><strong>Gate — это не балл, это бинарный фильтр.</strong> Нельзя поставить «почти да» или «скорее да». Если сомневаетесь — ниже разберём как принять решение при пограничных случаях.</div>
+  </div>
+
+  <!-- ЦЕЛОСТНОСТЬ -->
+  <div class="gate-block">
+    <div class="gate-block-head">
+      <div class="gate-block-ico">🧭</div>
+      <div>
+        <div class="gate-block-title">Целостность</div>
+        <div class="gate-block-def">Последователен в словах и поступках. Одинаково честен с людьми вне зависимости от иерархии. Действует этично — даже когда никто не смотрит.</div>
+      </div>
+    </div>
+    <div class="gate-block-body">
+      <div class="flag-col flag-green">
+        <div class="flag-col-head"><div class="flag-dot"></div><div class="flag-col-title">Зелёные флаги — ДА</div></div>
+        <div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Говорит одно и то же разным людям — мне, команде, коллегам из других отделов</div></div>
+        <div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Признаёт ошибки открыто, не перекладывает на других</div></div>
+        <div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Поведение одинаковое — и когда я рядом, и когда меня нет</div></div>
+        <div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Если меняет позицию — объясняет почему, открыто</div></div>
+      </div>
+      <div class="flag-col flag-red">
+        <div class="flag-col-head"><div class="flag-dot"></div><div class="flag-col-title">Красные флаги — НЕТ</div></div>
+        <div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">В кабинете одно, за кофе — другое. Команда слышит иное, чем я</div></div>
+        <div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Скрывает ошибки или узнаём о них от других</div></div>
+        <div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Меняет позицию под давлением аудитории — без объяснения</div></div>
+        <div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Разные стандарты поведения с разными людьми по иерархии</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ПРОФЕССИОНАЛИЗМ -->
+  <div class="gate-block">
+    <div class="gate-block-head">
+      <div class="gate-block-ico">🎯</div>
+      <div>
+        <div class="gate-block-title">Профессионализм</div>
+        <div class="gate-block-def">Надёжен в результате, сроках и отношении к людям. Держит слово. Не токсичен.</div>
+      </div>
+    </div>
+    <div class="gate-block-body">
+      <div class="flag-col flag-green">
+        <div class="flag-col-head"><div class="flag-dot"></div><div class="flag-col-title">Зелёные флаги — ДА</div></div>
+        <div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Держит договорённости без напоминаний — или предупреждает заранее о рисках</div></div>
+        <div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Уважителен со всеми — с командой, смежниками, подрядчиками</div></div>
+        <div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Под давлением остаётся собой — не срывается, не токсичен</div></div>
+        <div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Берёт ответственность за результат — даже если что-то пошло не так</div></div>
+      </div>
+      <div class="flag-col flag-red">
+        <div class="flag-col-head"><div class="flag-dot"></div><div class="flag-col-title">Красные флаги — НЕТ</div></div>
+        <div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Договорённости нарушает без предупреждения — узнаём постфактум</div></div>
+        <div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Под давлением становится агрессивным, пассивно-агрессивным или закрытым</div></div>
+        <div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Токсичен с теми, кто ниже по иерархии</div></div>
+        <div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">При провале — ищет виноватых, не решение</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NUANCE BLOCK -->
+  <div class="nuance-block">
+    <div class="nuance-title">Пограничные случаи — как решить?</div>
+    <div class="nuance-sub">Самые частые ситуации, когда кажется, что «почти да». Нажмите на ситуацию — увидите ответ и логику.</div>
+    <div class="nuance-cases">
+
+      <div class="ncase ncase-no" onclick="toggleNcase(this)">
+        <div class="ncase-head">
+          <div class="ncase-verdict">НЕТ</div>
+          <div class="ncase-situation">Соблюдает договорённости, уважителен — но ответственность берёт только под контролем, сам не выходит вперёд</div>
+          <div class="ncase-tag">НЕТ</div>
+          <div class="ncase-chevron">▼</div>
+        </div>
+        <div class="ncase-body">
+          Ответственность «при контроле» — это не ответственность. Gate про Профессионализм требует, чтобы человек <em>сам</em> держал слово и брал результат — не потому что проверяют, а потому что так работает. Это НЕТ. Хорошая новость: это развиваемо. Через 6 месяцев целенаправленной работы можно пересмотреть.
+        </div>
+      </div>
+
+      <div class="ncase ncase-no2" onclick="toggleNcase(this)">
+        <div class="ncase-head">
+          <div class="ncase-verdict">⚠</div>
+          <div class="ncase-situation">90% поведения — всё хорошо, но были 2–3 случая нарушения договорённостей или токсичности под давлением</div>
+          <div class="ncase-tag">Зависит</div>
+          <div class="ncase-chevron">▼</div>
+        </div>
+        <div class="ncase-body">
+          Здесь важен характер этих случаев. Если это были <strong>разовые срывы в экстремальном стрессе</strong> и человек сам признал и исправился — можно поставить ДА с оговоркой и зафиксировать для мониторинга. Если это <strong>системный паттерн</strong> (при давлении всегда так, или с определёнными людьми всегда иначе) — это НЕТ. Ключевой вопрос: это исключение из правила или это правило?
+        </div>
+      </div>
+
+      <div class="ncase ncase-yes" onclick="toggleNcase(this)">
+        <div class="ncase-head">
+          <div class="ncase-verdict">ДА</div>
+          <div class="ncase-situation">Человек открыто признаёт свои ошибки и иногда сомневается публично — это не слабость?</div>
+          <div class="ncase-tag">ДА</div>
+          <div class="ncase-chevron">▼</div>
+        </div>
+        <div class="ncase-body">
+          Это не слабость — это целостность в действии. Публичное признание ошибок и сомнений — один из самых сильных сигналов Gate ДА. Это значит, что человек не подстраивает картину реальности под ожидания аудитории. Gate — про честность, не про уверенность.
+        </div>
+      </div>
+
+      <div class="ncase ncase-no" onclick="toggleNcase(this)">
+        <div class="ncase-head">
+          <div class="ncase-verdict">НЕТ</div>
+          <div class="ncase-situation">Очень высокие результаты, команда его любит — но я видел, как он манипулирует информацией в свою пользу</div>
+          <div class="ncase-tag">НЕТ</div>
+          <div class="ncase-chevron">▼</div>
+        </div>
+        <div class="ncase-body">
+          Результаты и симпатия команды не закрывают Gate. Манипуляция информацией — прямое нарушение Целостности. Особенно опасно на высоком результате: такой человек на следующем уровне будет делать то же самое, но с большим влиянием. Это НЕТ без исключений.
+        </div>
+      </div>
+
+      <div class="ncase ncase-yes" onclick="toggleNcase(this)">
+        <div class="ncase-head">
+          <div class="ncase-verdict">ДА</div>
+          <div class="ncase-situation">Человек новый — я просто мало его знаю, не могу уверенно оценить Gate</div>
+          <div class="ncase-tag">ДА с оговоркой</div>
+          <div class="ncase-chevron">▼</div>
+        </div>
+        <div class="ncase-body">
+          Если нет явных красных флагов — ставьте ДА, но с пометкой «недостаточно наблюдений». Это честная позиция. Зафиксируйте, что нужно больше времени — и пересмотрите на следующем цикле через 3–6 месяцев. Gate ДА не означает «уверен на 100%», он означает «нет оснований для НЕТ».
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- % RULE -->
+  <div class="perc-rule">
+    <div class="perc-rule-ico">📊</div>
+    <div class="perc-rule-body">
+      <div class="perc-rule-title">Правило 90%: как думать о «почти»</div>
+      <div class="perc-rule-txt">Если 90% поведения человека соответствует Gate — задайте себе вопрос: <em style="color:rgba(255,255,255,.85)">«Те 10% — это исключение или паттерн?»</em></div>
+      <div class="perc-bar">
+        <div class="pb-no" style="width:10%">10%</div>
+        <div class="pb-yes" style="width:90%">90% соответствует</div>
+      </div>
+      <div class="perc-labels">
+        <span>Красные флаги</span>
+        <span>Зелёные флаги</span>
+      </div>
+      <div style="margin-top:10px;font-size:12px;color:rgba(255,255,255,.55);line-height:1.6">
+        Если те 10% — это <strong style="color:rgba(255,255,255,.8)">системный паттерн</strong> (всегда при давлении, всегда с определёнными людьми, всегда когда нет контроля) — это НЕТ.<br>
+        Если это <strong style="color:rgba(255,255,255,.8)">разовые исключения</strong> с явным признанием и исправлением — это ДА с мониторингом.
+      </div>
+    </div>
+  </div>
+
+  <div class="gate-rule-final">
+    <div class="gate-rule-ico">📌</div>
+    <div class="gate-rule-txt">
+      <strong>Правило фиксации на Talent Review:</strong> Если даёте НЕТ — нужен конкретный факт, не ощущение. «Он ненадёжный» — не основание. «В марте пообещал закрыть к пятнице, не предупредил о срыве, узнали от клиента» — основание. Вас спросят: <em style="color:rgba(255,255,255,.8)">«Факт?»</em>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════════════════════ HOW TO THINK -->
+<div class="page" id="p-how">
+<div class="container">
+  <div class="hero">
+    <div class="hero-tag">Принципы оценки</div>
+    <div class="hero-title">Как думать правильно</div>
+    <div class="hero-sub">Шесть правил, которые отделяют честную оценку от субъективного впечатления. Прочитай перед тем, как заполнять карту.</div>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Сначала Gate — полностью</div>
+        <div class="step-desc">Если хотя бы одно НЕТ — критерии потенциала неважны. Оценивать дальше не нужно. HiPo закрыт до явного изменения поведения минимум 6 месяцев.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Результативность и потенциал — разные оси</div>
+        <div class="step-desc">Высокий KPI ≠ высокий потенциал. Это две отдельные оценки. Человек может быть HiPo с текущим средним результатом (например на новой роли) — и наоборот: отличный исполнитель без потенциала к росту. Не смешивайте.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Только 30–90 дней. Не история</div>
+        <div class="step-desc">«Он всегда был таким» — не аргумент. «В феврале он сделал вот что» — аргумент. Оцениваем актуальное поведение. Прошлые заслуги — отдельный разговор о вкладе, не об оценке потенциала.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Один конкретный пример на каждую тройку</div>
+        <div class="step-desc">Прежде чем поставить 3 — назовите случай из последних 90 дней. Если не можете — скорее всего это 2, не 3. На Talent Review вас спросят именно об этом примере.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-title">Проверьте распределение команды</div>
+        <div class="step-desc">Норма: HiPo 3–7%, HiPro 8–12%, Core 50–60%. Если у вас больше 15% HiPo — скорее всего завышенная планка. Если все Core — заниженная. Карта оценки подсветит перекос автоматически.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <div class="step-title">Готовьтесь защитить оценку фактами</div>
+        <div class="step-desc">На сессии вас спросят: «Почему 3?» и «Почему Gate НЕТ?». Ответ — не «потому что он хороший» или «что-то не то», а конкретный кейс: <em>поведение → ситуация → последствие для бизнеса</em>. Без этого оценка будет оспорена.</div>
+      </div>
+    </div>
+  </div>
+  <div class="rule-final">
+    <div class="rule-final-ico">⚡</div>
+    <div class="rule-final-txt">
+      <strong>Главное правило:</strong> Нет факта из последних 30–90 дней — нет оценки выше 2. Нет факта нарушения — нет Gate НЕТ. Высокая оценка без доказательства — это не щедрость, это ошибка системы.
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+const C=[
+  {id:'c1',icon:'🧠',name:'Обучаемость',weight:25,color:'#185FA5',bg:'#E6F1FB',
+   def:'Осваивает новое быстрее других. Меняет поведение после обратной связи. На изменения реагирует «как внедрить?», а не «раньше работало».',
+   scale:[{n:'1',lbl:'Ждёт указаний',desc:'Новое осваивает медленно. Повторяет одни и те же ошибки. На изменения — сопротивление или игнорирование.'},{n:'2',lbl:'Учится сам',desc:'Осваивает новое при поддержке. Принимает ОС, но меняется не сразу. Адаптируется после объяснения.'},{n:'3',lbl:'Учит других',desc:'Осваивает быстрее команды. Мгновенно меняет подход после ОС. Сам предлагает как внедрить изменение.'}],
+   questions:[{q:'Последний раз, когда что-то изменилось в процессах — как он отреагировал?',note:'Ищем: взял инициативу vs ждал объяснений'},{q:'Была ситуация, когда я дал ОС? Что изменилось в поведении после?',note:'Ключевое: изменение поведения, а не просто «согласился»'},{q:'Есть что-то, чему он научился сам — без задания сверху?',note:'Самостоятельное обучение = сигнал потенциала'},{q:'Повторял ли одну и ту же ошибку дважды после того, как я указал?',note:'Повтор ошибки после ОС — сигнал для оценки 1'},{q:'Делится ли новыми знаниями с командой — или держит при себе?',note:'Учит других = оценка 3'}],
+   yes:['Сам нашёл способ сделать процесс быстрее без запроса','После ОС изменил подход уже в следующей задаче','Объяснил новый инструмент коллегам раньше, чем попросили','Спросил «как это работает?» — и внедрил на следующей неделе'],
+   no:['Продолжает делать по-старому, зная о лучшем способе','После ОС соглашается, но ничего не меняет','На тренинге был — в работе ничего не изменилось','На вопрос «как дела с X?» — «ну как обычно»'],
+   traps:['Не путайте скорость выполнения с обучаемостью — быстрый ≠ обучаемый','Харизма маскирует низкую обучаемость — проверяйте фактами','«Он всегда быстро схватывает» — не оценка, нужен пример из 30 дней']},
+  {id:'c2',icon:'🚀',name:'Амбициозность',weight:25,color:'#3B6D11',bg:'#EAF3DE',
+   def:'Берётся за задачи вне должностной инструкции. Видит проблемы вне своего участка и действует без запроса. Приходит с решением, а не с проблемой.',
+   scale:[{n:'1',lbl:'Своя зона',desc:'Делает только то, что входит в обязанности. Проблемы вне участка — не его дело. Приходит с проблемой без вариантов.'},{n:'2',lbl:'+10% сверху',desc:'Иногда берётся за дополнительные задачи. Иногда предлагает решения. Действует при наличии поддержки.'},{n:'3',lbl:'Поднимает планку',desc:'Регулярно берётся за задачи выше роли. Видит и решает проблемы вне участка. Всегда приходит с решением.'}],
+   questions:[{q:'Был случай, когда он взял задачу, которая не была его обязанностью?',note:'Важно: сам взял или его попросили?'},{q:'Последний раз, когда пришёл с проблемой — принёс варианты решения?',note:'«Есть проблема» vs «вот проблема и три варианта» — разные уровни'},{q:'Замечал ли проблему в смежной зоне и сообщал об этом?',note:'Проактивность вне своего участка = сигнал для оценки 3'},{q:'Ставит ли себе задачи сам — или работает только по входящим запросам?',note:'Самостоятельная постановка = высокий уровень'},{q:'Стремился ли в последние 90 дней к задачам следующего уровня?',note:'Запрос сложного = амбиция'}],
+   yes:['Сам пришёл: «Вижу проблему в процессе — можно займусь?»','Предложил три варианта решения до того, как спросил','Взял сложную задачу, зная, что потребует сверхурочно','Заметил риск в соседнем отделе — хотя его не касалось'],
+   no:['На вопрос «что думаешь делать?» — «не знаю, ты скажи»','«Это не моё, пусть они разбираются»','Работает строго по списку, выходить не готов','Ждёт, пока руководитель назначит задачу'],
+   traps:['Не путайте загруженность с амбициозностью — занятой ≠ амбициозный','Амбициозность без результата — это суета: нужна связь взял→довёл','«Всегда готов помочь» — это про характер, не про амбициозность']},
+  {id:'c3',icon:'🤝',name:'Влияние',weight:20,color:'#534AB7',bg:'#EEEDFE',
+   def:'Коллеги идут к нему за советом раньше, чем к руководителю. Умеет донести позицию и убедить без давления. Внедряет решения через людей, а не в одиночку.',
+   scale:[{n:'1',lbl:'Работает один',desc:'Коллеги редко советуются. Идеи продвигает через давление или формальные каналы. Результаты — в одиночку.'},{n:'2',lbl:'Убеждает при поддержке',desc:'Коллеги иногда советуются. Умеет донести позицию, но с усилием. Работает в команде при наличии структуры.'},{n:'3',lbl:'Тянет за собой',desc:'Неформальный авторитет. Убеждает без давления. Реализует через людей — результат командный.'}],
+   questions:[{q:'Кто в команде первым идёт к нему за советом — до того, как ко мне?',note:'Неформальный авторитет виден через поведение других'},{q:'Был случай, когда он убедил команду или меня изменить решение — как?',note:'Через аргументы vs через давление или манипуляцию'},{q:'Последний проект — делал сам или вовлекал других?',note:'«Сделал сам» — хорошо. Оценка 3 = сделал через людей'},{q:'Как команда реагирует, когда он предлагает идею?',note:'Воспринимают серьёзно — или игнорируют?'},{q:'Был конфликт, в котором участвовал? Как разрешил?',note:'Разрешение без эскалации = сигнал влияния'}],
+   yes:['Коллеги обращаются за советом — сам наблюдал','Убедил команду изменить подход, объяснив логику','Взял координацию кросс-функционально — хотя не был назначен','Разрешил конфликт между сотрудниками без моего участия'],
+   no:['На совещании молчит или говорит — никто не реагирует','Идеи продвигает через «мне руководитель сказал»','Работает хорошо, но только один','Конфликты сразу эскалирует ко мне'],
+   traps:['Громкость ≠ влияние — тихий человек может иметь огромный авторитет','Популярность ≠ влияние — «все его любят» не про влияние','Не путайте влияние с манипуляцией — интриги = тревожный сигнал']},
+  {id:'c4',icon:'🔭',name:'Системность',weight:15,color:'#854F0B',bg:'#FAEEDA',
+   def:'Видит связи и причины там, где другие видят отдельные события. Решает корневые проблемы, а не симптомы. Мыслит на шаг шире своей задачи.',
+   scale:[{n:'1',lbl:'Тушит пожары',desc:'Реагирует на симптомы, не ищет причины. Не видит связей. Решение одной проблемы создаёт другую.'},{n:'2',lbl:'Видит часть картины',desc:'Иногда анализирует причины. Видит связи в своей зоне. Решения работают краткосрочно.'},{n:'3',lbl:'Видит систему',desc:'Находит корневую причину. Видит, как изменение в одном месте влияет на другое. Решения устойчивы.'}],
+   questions:[{q:'Последняя проблема, с которой пришёл — описал симптом или причину?',note:'«Клиенты жалуются» — симптом. «Процесс создаёт задержку 3 дня» — причина'},{q:'Его решение было устойчивым — или проблема вернулась через месяц?',note:'Повторяющиеся проблемы = симптоматическое лечение'},{q:'Когда объяснял стратегию — задавал вопросы про взаимосвязи или только про свою часть?',note:'«А как это влияет на...?» — системное мышление'},{q:'Предлагал изменения, затрагивающие несколько зон?',note:'Кросс-функциональное мышление = сигнал системности'},{q:'Мог объяснить, почему его задача важна для общего результата?',note:''}],
+   yes:['Пришёл с «вот корневая причина и что изменить»','Предложил изменение, решившее сразу три смежных проблемы','Спросил: «Если сделаем X — как повлияет на Y в другом отделе?»','Его решение работает уже 2 месяца — не вернулось'],
+   no:['Одну и ту же проблему решает одним способом — и она возвращается','Не видит, как задача влияет на результат компании','На «почему так?» — «не знаю, просто так»','Решает только в своей зоне'],
+   traps:['Системность ≠ умение делать красивые схемы','Умный ≠ системный — разные вещи','Не путайте детальность (внимание к деталям) и системность (видение целого)']},
+  {id:'c5',icon:'🪞',name:'Осознанность',weight:15,color:'#8B2252',bg:'#FBEAF0',
+   def:'Принимает обратную связь без защитной реакции. Чётко знает свои зоны роста. Меняется под влиянием ОС — не только соглашается, а именно меняется.',
+   scale:[{n:'1',lbl:'Защищается',desc:'На ОС — оправдания или агрессия. Зоны роста не признаёт. Поведение не меняется после обсуждений.'},{n:'2',lbl:'Принимает формально',desc:'ОС воспринимает без конфликта, но меняется медленно. Зоны роста — под давлением. Изменения непоследовательны.'},{n:'3',lbl:'Растёт активно',desc:'На ОС — интерес: «что именно?». Сам называет зоны роста. Изменения видны через 2–4 недели.'}],
+   questions:[{q:'Последний раз, когда я дал ОС — как он отреагировал в моменте?',note:'Ищем: интерес и уточнения vs оправдания и «но...»'},{q:'Изменилось ли поведение после той ОС — конкретно что?',note:'Согласился vs изменился — принципиальная разница'},{q:'Если спросить сейчас: «назови три зоны роста» — что скажет?',note:'Конкретность ответа = уровень осознанности'},{q:'Был момент, когда сам пришёл: «Я понял, что делаю это неправильно»?',note:'Саморефлексия без триггера = оценка 3'},{q:'Как ведёт себя, когда его критикуют публично?',note:'Стресс проявляет реальный уровень осознанности'}],
+   yes:['На ОС спросил: «Можешь привести конкретный пример?» — и записал','Сам пришёл: «Попробовал то, что говорил — вот что получилось»','Назвал зоны роста точнее, чем я бы назвал','При публичной критике: «принял, разберусь»'],
+   no:['На любую ОС: «да, но...» с объяснением почему всё правильно','«Я знаю, работаю над этим» — месяц за месяцем, без изменений','Зоны роста — только общими словами: «коммуникация», «тайм-менеджмент»','После критики замкнулся или стал избегать меня'],
+   traps:['Соглашение ≠ осознанность: главное — изменение поведения, не слова','Эмоциональность ≠ низкая осознанность — расстроиться и измениться — нормально','Не путайте самокритику на словах с реальной осознанностью']}
+];
+
+let selIdx=0;
+function initCriteria(){
+  const row=document.getElementById('crit-row');
+  row.innerHTML=C.map((c,i)=>`<div class="cpill ${i===0?'on':''}"
+    style="--active-c:${c.color};--active-bg:${c.bg};${i===0?`color:${c.color};background:${c.bg};border-color:${c.color};`:''}"
+    onclick="selectCrit(${i},this)">
+    <span class="pill-icon">${c.icon}</span>${c.name}<span class="pill-w">${c.weight}%</span></div>`).join('');
+  renderCritCard(0);
+}
+function selectCrit(idx,el){
+  selIdx=idx;
+  document.querySelectorAll('.cpill').forEach(p=>{p.classList.remove('on');p.style.color='';p.style.background='';p.style.borderColor='';});
+  el.classList.add('on');
+  const c=C[idx];
+  el.style.color=c.color;el.style.background=c.bg;el.style.borderColor=c.color;
+  renderCritCard(idx);
+}
+function renderCritCard(idx){
+  const c=C[idx];
+  document.getElementById('crit-card').innerHTML=`
+    <div class="crit-card-head">
+      <div class="head-icon">${c.icon}</div>
+      <div>
+        <div class="head-name">${c.name}<span class="head-badge" style="background:${c.bg};color:${c.color}">${c.weight}% веса</span></div>
+        <div class="head-def">${c.def}</div>
+      </div>
+    </div>
+    <div class="crit-body">
+      <div><div class="slabel">Шкала 1 → 2 → 3</div>
+        <div class="scale-grid">${c.scale.map((s,i)=>`<div class="scale-item s${i+1}"><div class="scale-num">${s.n}</div><div class="scale-lbl">${s.lbl}</div><div class="scale-desc">${s.desc}</div></div>`).join('')}</div>
+      </div>
+      <div><div class="slabel">Вопросы себе перед оценкой</div>
+        <div class="q-list">${c.questions.map((q,i)=>`<div class="q-item"><div class="q-n" style="background:${c.color}">${i+1}</div><div><div class="q-text">${q.q}</div>${q.note?`<div class="q-note">→ ${q.note}</div>`:''}</div></div>`).join('')}</div>
+      </div>
+      <div><div class="slabel">Что говорит о высоком / о низком уровне</div>
+        <div class="ev-grid">
+          <div class="ev-card ev-yes"><div class="ev-head">✓ Видел за 30–90 дней</div>${c.yes.map(e=>`<div class="ev-item">${e}</div>`).join('')}</div>
+          <div class="ev-card ev-no"><div class="ev-head">✗ Тревожные сигналы</div>${c.no.map(e=>`<div class="ev-item">${e}</div>`).join('')}</div>
+        </div>
+      </div>
+      <div><div class="slabel">Ловушки оценки</div>
+        <div class="trap-list">${c.traps.map(t=>`<div class="trap"><div class="trap-ico">⚠</div><div class="trap-txt">${t}</div></div>`).join('')}</div>
+      </div>
+    </div>`;
+}
+function showPage(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.mnav-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('p-'+id).classList.add('on');
+  el.classList.add('on');
+}
+function toggleNcase(el){el.classList.toggle('open')}
+initCriteria();
+</script>
+</body>
+</html>
