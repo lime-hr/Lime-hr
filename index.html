@@ -242,6 +242,7 @@ body{background:var(--off);color:var(--text);font-family:'Onest',sans-serif;font
   <button class="mnav-btn"     onclick="showPage('perf',this)">Результативность</button>
   <button class="mnav-btn"     onclick="showPage('gate',this)">Gate-фильтр</button>
   <button class="mnav-btn"     onclick="showPage('how',this)">Как думать правильно</button>
+  <button class="mnav-btn"     onclick="showPage('tr',this)">Подготовка к Talent Review</button>
 </nav>
 
 <!-- ════════════════════════════ CRITERIA -->
@@ -674,5 +675,151 @@ function showPage(id,el){
 function toggleNcase(el){el.classList.toggle('open')}
 initCriteria();
 </script>
+
+<!-- ════════════════════════════ TR PAGE -->
+<div class="page" id="p-tr">
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-tag">Линейный руководитель · Talent Review</div>
+    <div class="hero-title">Подготовка к сессии</div>
+    <div class="hero-sub">Приходишь с фактами — не с ощущениями. Твоя оценка уже в карте Excel. Задача — уметь её защитить.</div>
+  </div>
+
+  <!-- ЧТО ПРИНОСИШЬ -->
+  <div style="background:var(--white);border-radius:var(--r);overflow:hidden;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.05)">
+    <div style="padding:12px 18px;border-bottom:1px solid var(--mid);background:var(--off)">
+      <div style="font-family:'Unbounded',sans-serif;font-size:13px;font-weight:600;color:var(--text)">Что берёшь с собой</div>
+    </div>
+    <div style="padding:14px 18px;display:flex;flex-direction:column;gap:6px" id="cl-items"></div>
+  </div>
+
+  <!-- ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ -->
+  <div style="background:#FAEEDA;border:.5px solid #F5C87A;border-radius:var(--r);padding:13px 18px;margin-bottom:12px;display:flex;gap:10px;align-items:flex-start">
+    <div style="font-size:16px;flex-shrink:0">⚠</div>
+    <div>
+      <div style="font-size:12px;font-weight:600;color:#854F0B;margin-bottom:3px">Потенциал ≠ Результативность</div>
+      <div style="font-size:11.5px;color:#6B4800;line-height:1.6">Самая частая ошибка на калибровке — поставить HiPo только потому что человек хорошо работает. Результативность оценивается отдельно (ЧТО сделал). Потенциал — отдельно (КАК думает, учится, влияет). Звезда = высокий по обоим. Проверь себя перед сессией.</div>
+    </div>
+  </div>
+
+  <!-- ФОРМАТ ПРЕДСТАВЛЕНИЯ -->
+  <div style="background:var(--white);border-radius:var(--r);overflow:hidden;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.05)">
+    <div style="padding:12px 18px;border-bottom:1px solid var(--mid);background:var(--off)">
+      <div style="font-family:'Unbounded',sans-serif;font-size:13px;font-weight:600;color:var(--text)">Как представлять сотрудника · 2 минуты</div>
+    </div>
+    <div style="padding:14px 18px">
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px" id="present-steps"></div>
+      <div style="background:#FFF8F0;border:1px solid #F5DFA0;border-radius:var(--rs);padding:11px 14px;font-size:12px;color:#6B4800;line-height:1.6">
+        <strong>Пример:</strong> «Иванов, менеджер по продажам — Звезда. Стабильно 110%+ два квартала подряд. В январе взял кросс-функциональный проект с IT без назначения — закрыл за 3 недели, запустили новый процесс приёмки на 2 недели раньше срока, сэкономили 400 часов в квартал. Обучаемость — после разговора про клиентский подход полностью изменил формат встреч. Готов к следующей роли через 6–12 месяцев.»
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div style="background:var(--white);border-radius:var(--r);overflow:hidden;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.05)">
+    <div style="padding:12px 18px;border-bottom:1px solid var(--mid);background:var(--off)">
+      <div style="font-family:'Unbounded',sans-serif;font-size:13px;font-weight:600;color:var(--text)">Вопросы которые тебе зададут</div>
+    </div>
+    <div style="padding:10px 14px;display:flex;flex-direction:column;gap:5px" id="tr-faq"></div>
+  </div>
+
+  <!-- ПРАВИЛО -->
+  <div style="background:var(--black);border-radius:var(--r);padding:16px 20px;display:flex;gap:12px;align-items:center">
+    <div style="font-size:18px;flex-shrink:0">🔒</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.6">Всё обсуждённое на сессии — конфиденциально. Сотрудникам не говоришь «на калибровке решили». Итоги коммуницируешь лично ты как руководитель.</div>
+  </div>
+
+</div>
+</div>
+
+<style>
+.cl-row{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:var(--rs);background:var(--off);cursor:pointer;user-select:none;transition:background .12s}
+.cl-row:hover{background:var(--mid)}
+.cl-row.done{background:#EAF3DE}
+.cl-box{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--mid);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:11px;background:var(--white);transition:all .12s}
+.cl-row.done .cl-box{background:#275010;border-color:#275010;color:white}
+.cl-main{font-size:12px;color:var(--text);line-height:1.5}
+.cl-row.done .cl-main{color:#275010}
+.cl-sub{font-size:11px;color:var(--text2);margin-top:1px}
+.cl-row.done .cl-sub{color:#3B6D11}
+.ps-step{display:flex;gap:9px;padding:8px 12px;background:var(--off);border-radius:var(--rs);align-items:flex-start}
+.ps-num{width:20px;height:20px;border-radius:50%;background:var(--black);color:var(--lime);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:"Unbounded",sans-serif}
+.ps-label{font-size:12px;font-weight:600;color:var(--text);margin-bottom:1px}
+.ps-desc{font-size:11px;color:var(--text2);line-height:1.45}
+.faq-row{border-radius:var(--rs);overflow:hidden;border:.5px solid var(--mid)}
+.faq-q{padding:10px 13px;font-size:12px;font-weight:500;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:var(--white);user-select:none}
+.faq-q:hover{background:var(--off)}
+.faq-ch{font-size:10px;color:var(--muted);transition:transform .2s;flex-shrink:0;margin-left:8px}
+.faq-row.open .faq-ch{transform:rotate(180deg)}
+.faq-a{display:none;padding:9px 13px 12px;font-size:12px;color:var(--text2);line-height:1.6;background:var(--off);border-top:.5px solid var(--mid)}
+.faq-row.open .faq-a{display:block}
+</style>
+
+<script>
+const clData=[
+  {t:'Карта оценки заполнена по всей команде',
+   s:'9-box посчитан автоматически — убедись что заполнено у всех'},
+  {t:'По каждому HiPo и Hidden Gem есть кейс с результатом',
+   s:'Формат: ситуация → что сделал → что это дало бизнесу (цифра, срок, эффект)'},
+  {t:'Результативность оценена по 2–3 периодам, не одному',
+   s:'Квартал, сезон — смотри паттерн, не пик. Один хороший период ≠ стабильность'},
+  {t:'Проверил себя: потенциал не равно результативность',
+   s:'HiPo = высокий по обоим. Отличный исполнитель без потенциала роста — это HiPro, не Звезда'},
+  {t:'Для каждого HiPo готов ответить: готов когда?',
+   s:'Ready now / 6–12 мес / 1–2 года — это ключевой вопрос для Succession'},
+  {t:'Черновик Succession по ключевым и критичным ролям',
+   s:'Критичные — бизнес останавливается без замены (дни). Ключевые — теряем темп (месяцы). Кто ready now / R1 / R2+ на каждую?'},
+];
+
+const psData=[
+  {n:'1',label:'Имя + роль + квадрат',
+   desc:'«Иванов, менеджер по продажам — Звезда»'},
+  {n:'2',label:'Результативность — паттерн за 2–3 периода',
+   desc:'«Стабильно 110%+ два квартала» — не один пик, а тренд'},
+  {n:'3',label:'Кейс на потенциал с Impact',
+   desc:'Ситуация → поведение → что дало бизнесу. Называешь критерий: обучаемость, амбициозность, влияние, системность, осознанность'},
+  {n:'4',label:'Готов когда?',
+   desc:'«К следующей роли готов через 6–12 месяцев» — для HiPo и Hidden Gem обязательно'},
+  {n:'5',label:'Стоп',
+   desc:'Дальше только если спросят'},
+];
+
+const faqData=[
+  {q:'«Почему 3 по амбициозности?»',
+   a:'Называешь кейс с результатом: когда, что сделал, что дало бизнесу. Нет кейса — честно говоришь «скорректирую на 2».'},
+  {q:'«У тебя 20% HiPo — много»',
+   a:'Если завысил — пересматриваешь с аргументами по каждому. Если уверен — называешь факты. Норма 3–7%, выше требует доказательств.'},
+  {q:'«Я работал с ним на проекте и вижу иначе»',
+   a:'Слушаешь. Это ценно — кросс-функциональный взгляд точнее одного наблюдателя. Если аргумент весомый — меняешь. Если нет — держишь позицию со своими фактами.'},
+  {q:'«Кто твой преемник на ключевую роль?»',
+   a:'Называешь из Succession с горизонтом готовности. Нет ready now — честно: «R1 — имя, горизонт 12 месяцев». Дыра — тоже фиксируется, это важная информация.'},
+  {q:'«Он HiPo или просто хорошо работает?»',
+   a:'Объясняешь разницу фактами: результативность высокая — это одно. Потенциал — приводишь кейс на обучаемость или влияние. Без кейса на потенциал — это HiPro, не HiPo.'},
+];
+
+const clC=document.getElementById('cl-items');
+clData.forEach((item,i)=>{
+  const d=document.createElement('div');
+  d.className='cl-row';
+  d.innerHTML=`<div class="cl-box" id="clb${i}"></div><div><div class="cl-main">${item.t}</div><div class="cl-sub">${item.s}</div></div>`;
+  d.onclick=()=>{d.classList.toggle('done');document.getElementById('clb'+i).textContent=d.classList.contains('done')?'✓':'';};
+  clC.appendChild(d);
+});
+
+const psC=document.getElementById('present-steps');
+psData.forEach(s=>{
+  psC.innerHTML+=`<div class="ps-step"><div class="ps-num">${s.n}</div><div><div class="ps-label">${s.label}</div><div class="ps-desc">${s.desc}</div></div></div>`;
+});
+
+const faqC=document.getElementById('tr-faq');
+faqData.forEach(f=>{
+  const d=document.createElement('div');
+  d.className='faq-row';
+  d.innerHTML=`<div class="faq-q" onclick="this.parentElement.classList.toggle('open')">${f.q}<span class="faq-ch">▼</span></div><div class="faq-a">${f.a}</div>`;
+  faqC.appendChild(d);
+});
+</script>
+
 </body>
 </html>
