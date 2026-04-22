@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIME — Мост Инструктажа</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #111010;
+    --white: #f8f7f5;
+    --accent: #c9372c;
+    --fire: #f5e8e4;
+    --elec: #e8edf5;
+    --labor: #e8f0e8;
+    --hall: #fdf4e3;
+    --cash: #f0eaf5;
+    --fit: #e6f3f5;
+    --stock: #f5ede6;
+    --staff: #eef5e6;
+    --mid: #6b6b6b;
+    --grid-gap: 14px;
+  }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  /* ===== PAGE WRAPPER ===== */
+  .page {
+    width: 1280px;
+    margin: 0 auto;
+    padding: 36px 44px 44px;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    border-bottom: 2px solid var(--black);
+    padding-bottom: 16px;
+  }
+
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .logo span { border-bottom: 2px solid var(--black); }
+
+  .title-block { text-align: right; }
+
+  .main-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-top: 4px;
+  }
+
+  /* ===== SAFETY CATEGORIES ROW ===== */
+  .safety-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--grid-gap);
+    margin-bottom: var(--grid-gap);
+  }
+
+  .safety-card {
+    border-radius: 12px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .safety-card.fire { background: var(--fire); }
+  .safety-card.elec { background: var(--elec); }
+
+  .cat-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .cat-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .fire .cat-icon { background: var(--accent); color: white; }
+  .elec .cat-icon { background: #3a5fa8; color: white; }
+  .labor .cat-icon { background: #3a7a3a; color: white; }
+
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .rules-grid.two-col { grid-template-columns: repeat(2, 1fr); }
+
+  .rule-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .rule-num {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: 600;
+    flex-shrink: 0;
+    color: var(--black);
+  }
+
+  .rule-text {
+    font-size: 10.5px;
+    font-weight: 400;
+    line-height: 1.45;
+    color: #2a2a2a;
+  }
+
+  .rule-text strong {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 1px;
+  }
+
+  /* ===== ZONES SECTION ===== */
+  .zones-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 10px;
+    margin-top: 6px;
+  }
+
+  .zones-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--grid-gap);
+    margin-bottom: var(--grid-gap);
+  }
+
+  .zone-card {
+    border-radius: 12px;
+    padding: 16px 16px 14px;
+    position: relative;
+  }
+
+  .zone-card.hall   { background: var(--hall); }
+  .zone-card.cash   { background: var(--cash); }
+  .zone-card.fit    { background: var(--fit); }
+  .zone-card.stock  { background: var(--stock); }
+  .zone-card.staff  { background: var(--staff); }
+
+  .zone-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.10);
+  }
+
+  .zone-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(0,0,0,0.12);
+  }
+
+  .zone-name {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--black);
+    line-height: 1.2;
+  }
+
+  .zone-emoji {
+    margin-left: auto;
+    font-size: 18px;
+    opacity: 0.7;
+  }
+
+  .zone-rules { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+
+  .zone-rules li {
+    font-size: 10px;
+    line-height: 1.45;
+    color: #2a2a2a;
+    padding-left: 12px;
+    position: relative;
+  }
+
+  .zone-rules li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.25);
+    flex-shrink: 0;
+  }
+
+  /* ===== LABOR + FOOTER ROW ===== */
+  .bottom-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--grid-gap);
+    align-items: end;
+  }
+
+  .labor-card {
+    background: var(--labor);
+    border-radius: 12px;
+    padding: 16px 20px;
+  }
+
+  .labor-rules {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .footer-badge {
+    background: var(--black);
+    color: var(--white);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    text-align: center;
+    min-width: 140px;
+  }
+
+  .footer-badge .big-emoji { font-size: 28px; }
+
+  .footer-badge p {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    font-weight: 400;
+    opacity: 0.85;
+  }
+
+  .tag {
+    display: inline-block;
+    background: rgba(0,0,0,0.08);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 8.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  /* ===== DANGER BADGE ===== */
+  .danger { color: var(--accent); font-weight: 600; }
+
+  @media print {
+    body { background: white; }
+    .page { padding: 20px 30px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo"><span>LIM</span>Ē</div>
+    <div class="title-block">
+      <div class="main-title">Мост Инструктажа</div>
+      <div class="subtitle">Памятка по охране труда и пожарной безопасности</div>
+    </div>
+  </div>
+
+  <!-- FIRE + ELECTRICAL SAFETY -->
+  <div class="safety-row">
+
+    <!-- FIRE SAFETY -->
+    <div class="safety-card fire">
+      <div class="cat-label">
+        <div class="cat-icon">🔥</div>
+        Пожарная безопасность
+      </div>
+      <div class="rules-grid">
+        <div class="rule-item">
+          <div class="rule-num">1</div>
+          <div class="rule-text"><strong>Зазор 50 см</strong>От вентиляции, осветительных приборов и пожарных датчиков до товара — не менее 50 см</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">2</div>
+          <div class="rule-text"><strong>Свободный доступ</strong>Пожарные краны, шкафчики, планы эвакуации всегда открыты и не загорожены</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">3</div>
+          <div class="rule-text"><strong>Огнетушитель</strong>Только под знаком «белый огнетушитель на красном фоне»</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">4</div>
+          <div class="rule-text"><strong>Двери на доводчиках</strong>Противопожарные двери — закрыты. В крайних случаях используй дверные стоперы</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">5</div>
+          <div class="rule-text"><strong>Пути эвакуации</strong>Эвакуационные выходы и пути передвижения — свободны и в порядке</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">6</div>
+          <div class="rule-text"><strong>Отпариватель</strong>Только в зоне отпарки. После работы — выключить из розетки. Повреждённый провод не использовать</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ELECTRICAL SAFETY -->
+    <div class="safety-card elec">
+      <div class="cat-label">
+        <div class="cat-icon">⚡</div>
+        Электробезопасность
+      </div>
+      <div class="rules-grid two-col">
+        <div class="rule-item">
+          <div class="rule-num">1</div>
+          <div class="rule-text"><strong>IT-шкаф</strong>Поддерживай порядок в IT‑шкафу строго по памятке</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">2</div>
+          <div class="rule-text"><strong>Удлинители</strong>Исключи использование удлинителей. При необходимости — согласуй с ответственным</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">3</div>
+          <div class="rule-text"><strong>Провода</strong>Используй только исправные провода — без повреждений, в том числе личные гаджеты</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">4</div>
+          <div class="rule-text"><strong class="danger">Запрет!</strong>Самостоятельная изоляция провода скотчем — строго исключена</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 5 ZONES -->
+  <div class="zones-title">— 5 зон магазина</div>
+  <div class="zones-row">
+
+    <div class="zone-card hall">
+      <div class="zone-header">
+        <div class="zone-num">01</div>
+        <div class="zone-name">Торговый<br>зал</div>
+        <div class="zone-emoji">🏪</div>
+      </div>
+      <ul class="zone-rules">
+        <li>Проходы и эвакуационные пути — всегда свободны</li>
+        <li>Торговое оборудование равномерно загружено, края товара не выступают за полку</li>
+        <li>Неисправное оборудование — немедленно вывезти на центральный склад</li>
+        <li>Балки надёжно закреплены — регулярно проверяй крепления</li>
+        <li>Ковры закреплены к полу</li>
+        <li>Зазор от датчиков и вентиляции до товара — 50 см</li>
+      </ul>
+    </div>
+
+    <div class="zone-card cash">
+      <div class="zone-header">
+        <div class="zone-num">02</div>
+        <div class="zone-name">Касса</div>
+        <div class="zone-emoji">🖥️</div>
+      </div>
+      <ul class="zone-rules">
+        <li>Рабочее место чисто, провода убраны и не повреждены</li>
+        <li>IT‑оборудование — по стандарту памятки</li>
+        <li>Удлинители — только с разрешения ответственного</li>
+        <li>Личные гаджеты заряжать только исправными кабелями</li>
+        <li>Доступ к пожарному шкафу — свободен</li>
+      </ul>
+    </div>
+
+    <div class="zone-card fit">
+      <div class="zone-header">
+        <div class="zone-num">03</div>
+        <div class="zone-name">Примерочная</div>
+        <div class="zone-emoji">👗</div>
+      </div>
+      <ul class="zone-rules">
+        <li>Зазор от датчиков и освещения до товара — 50 см</li>
+        <li>Проход к примерочным не загроможден</li>
+        <li>Противопожарная дверь закрыта</li>
+        <li>Вещи не перегружают вешала и крючки</li>
+        <li>Покупатель всегда имеет свободный выход</li>
+      </ul>
+    </div>
+
+    <div class="zone-card stock">
+      <div class="zone-header">
+        <div class="zone-num">04</div>
+        <div class="zone-name">Склад</div>
+        <div class="zone-emoji">📦</div>
+      </div>
+      <ul class="zone-rules">
+        <li>Тяжёлый товар — на нижних полках, лёгкий — на верхних</li>
+        <li>Товар и боксы не выступают за края полки</li>
+        <li>Для верхних полок — стремянка, не стеллаж</li>
+        <li>Стеллажи соединены хомутами</li>
+        <li>Эвакуационный выход и пути — свободны</li>
+        <li>Зазор от датчиков до товара — 50 см</li>
+      </ul>
+    </div>
+
+    <div class="zone-card staff">
+      <div class="zone-header">
+        <div class="zone-num">05</div>
+        <div class="zone-name">Staff</div>
+        <div class="zone-emoji">🔑</div>
+      </div>
+      <ul class="zone-rules">
+        <li>Шкафчики закрыты, личные вещи хранятся аккуратно</li>
+        <li>Обеденная зона убирается после использования</li>
+        <li>Электрочайник и другие приборы отключать после использования</li>
+        <li>Пути к выходу и план эвакуации — не загорожены</li>
+        <li>Отпариватель — только в зоне отпарки, выключать из розетки</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- LABOR + FOOTER -->
+  <div class="bottom-row">
+    <div class="labor-card">
+      <div class="cat-label">
+        <div class="cat-icon" style="background:#3a7a3a;color:white;">🦺</div>
+        Охрана труда — личная безопасность
+      </div>
+      <div class="labor-rules">
+        <div class="rule-item">
+          <div class="rule-num">1</div>
+          <div class="rule-text"><strong>Маникюр</strong>Аккуратный, пастельные тона, округлая форма, длина 1–2 мм</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">2</div>
+          <div class="rule-text"><strong>Украшения</strong>Одно гладкое кольцо и часы без острых деталей</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">3</div>
+          <div class="rule-text"><strong>Брюки</strong>Подшиты: штанина не попадает под обувь, зазор 1–1.5 см от пола сзади</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">4</div>
+          <div class="rule-text"><strong>Стеллажи</strong>Регулярно проверяй крепления балок и хомуты полок</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-badge">
+      <div class="big-emoji">🛡️</div>
+      <p>Создавай безопасное<br>пространство<br>для команды!</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
