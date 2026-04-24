@@ -21,11 +21,13 @@ body{background:var(--off);color:var(--text);font-family:'Onest',sans-serif;font
 .header-title{font-size:12px;color:rgba(255,255,255,.45);text-align:right}
 .header-title strong{color:rgba(255,255,255,.85);display:block;font-weight:500;font-size:13px}
 
-.main-nav{background:var(--black);border-top:1px solid rgba(255,255,255,.06);padding:0 24px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+.main-nav{background:var(--black);border-top:1px solid rgba(255,255,255,.06);padding:0 24px;display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none}
 .main-nav::-webkit-scrollbar{display:none}
 .mnav-btn{font-family:'Onest',sans-serif;font-size:12px;font-weight:500;color:rgba(255,255,255,.4);padding:13px 16px 11px;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
 .mnav-btn:hover{color:rgba(255,255,255,.75)}
 .mnav-btn.on{color:var(--lime);border-bottom-color:var(--lime)}
+.dl-btn{display:flex;align-items:center;gap:7px;padding:7px 15px 7px 11px;background:var(--lime);color:var(--black);border:none;border-radius:99px;font-family:'Onest',sans-serif;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;flex-shrink:0;margin-left:auto;transition:background .15s}
+.dl-btn:hover{background:var(--lime-dark)}
 
 .page{display:none}.page.on{display:block}
 .container{max-width:960px;margin:0 auto;padding:24px 20px 60px}
@@ -36,7 +38,6 @@ body{background:var(--off);color:var(--text);font-family:'Onest',sans-serif;font
 .hero-title{font-family:'Unbounded',sans-serif;font-size:clamp(16px,4vw,22px);font-weight:600;color:var(--white);line-height:1.25;margin-bottom:10px}
 .hero-sub{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;max-width:580px}
 
-/* CRITERIA */
 .crit-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
 .cpill{display:flex;align-items:center;gap:7px;padding:9px 14px 9px 10px;border-radius:99px;border:1.5px solid var(--mid);background:var(--white);cursor:pointer;transition:all .15s;font-size:12px;font-weight:500;color:var(--text2)}
 .cpill:hover{transform:translateY(-1px)}
@@ -82,7 +83,6 @@ body{background:var(--off);color:var(--text);font-family:'Onest',sans-serif;font
 .trap-ico{font-size:14px;flex-shrink:0;margin-top:1px}
 .trap-txt{font-size:12px;color:#6B4800;line-height:1.5}
 
-/* ══ GATE PAGE ══════════════════════════════════════════ */
 .gate-alert{background:#FCEBEB;border:1.5px solid #F09595;border-radius:var(--r);padding:16px 20px;margin-bottom:20px;display:flex;gap:12px;align-items:flex-start}
 .gate-alert-ico{font-size:22px;flex-shrink:0}
 .gate-alert-txt{font-size:13px;color:#5A1010;line-height:1.6}
@@ -112,7 +112,6 @@ body{background:var(--off);color:var(--text);font-family:'Onest',sans-serif;font
 .flag-green .flag-item-txt{color:#1B4A0A}
 .flag-red   .flag-item-txt{color:#6B1010}
 
-/* NUANCE BLOCK */
 .nuance-block{background:var(--white);border-radius:var(--r);padding:18px 20px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
 .nuance-title{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px}
 .nuance-sub{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:16px}
@@ -159,7 +158,6 @@ body{background:var(--off);color:var(--text);font-family:'Onest',sans-serif;font
 .gate-rule-txt{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.6}
 .gate-rule-txt strong{color:var(--lime)}
 
-/* ══ PERFORMANCE PAGE ═══════════════════════════════════ */
 .perf-intro{background:var(--white);border-radius:var(--r);padding:18px 20px;margin-bottom:16px;border-left:4px solid var(--lime);font-size:13px;color:var(--text2);line-height:1.6;box-shadow:0 2px 8px rgba(0,0,0,.04)}
 .perf-intro strong{color:var(--text)}
 
@@ -203,7 +201,6 @@ body{background:var(--off);color:var(--text);font-family:'Onest',sans-serif;font
 .perf-trap-ico{font-size:13px;flex-shrink:0;margin-top:1px}
 .perf-trap-txt{font-size:12px;color:#6B4800;line-height:1.5}
 
-/* HOW PAGE */
 .steps{display:flex;flex-direction:column;gap:10px}
 .step{display:flex;gap:14px;background:var(--white);border-radius:var(--r);padding:16px 18px;align-items:flex-start;box-shadow:0 1px 6px rgba(0,0,0,.04)}
 .step-num{width:32px;height:32px;border-radius:50%;background:var(--black);color:var(--lime);font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -215,6 +212,27 @@ body{background:var(--off);color:var(--text);font-family:'Onest',sans-serif;font
 .rule-final-txt{font-size:13px;color:rgba(255,255,255,.65);line-height:1.6}
 .rule-final-txt strong{color:var(--lime)}
 
+.cl-row{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:var(--rs);background:var(--off);cursor:pointer;user-select:none;transition:background .12s}
+.cl-row:hover{background:var(--mid)}
+.cl-row.done{background:#EAF3DE}
+.cl-box{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--mid);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:11px;background:var(--white);transition:all .12s}
+.cl-row.done .cl-box{background:#275010;border-color:#275010;color:white}
+.cl-main{font-size:12px;color:var(--text);line-height:1.5}
+.cl-row.done .cl-main{color:#275010}
+.cl-sub{font-size:11px;color:var(--text2);margin-top:1px}
+.cl-row.done .cl-sub{color:#3B6D11}
+.ps-step{display:flex;gap:9px;padding:8px 12px;background:var(--off);border-radius:var(--rs);align-items:flex-start}
+.ps-num{width:20px;height:20px;border-radius:50%;background:var(--black);color:var(--lime);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:"Unbounded",sans-serif}
+.ps-label{font-size:12px;font-weight:600;color:var(--text);margin-bottom:1px}
+.ps-desc{font-size:11px;color:var(--text2);line-height:1.45}
+.faq-row{border-radius:var(--rs);overflow:hidden;border:.5px solid var(--mid)}
+.faq-q{padding:10px 13px;font-size:12px;font-weight:500;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:var(--white);user-select:none}
+.faq-q:hover{background:var(--off)}
+.faq-ch{font-size:10px;color:var(--muted);transition:transform .2s;flex-shrink:0;margin-left:8px}
+.faq-row.open .faq-ch{transform:rotate(180deg)}
+.faq-a{display:none;padding:9px 13px 12px;font-size:12px;color:var(--text2);line-height:1.6;background:var(--off);border-top:.5px solid var(--mid)}
+.faq-row.open .faq-a{display:block}
+
 @media(max-width:600px){
   .header-inner{flex-direction:column;align-items:flex-start;gap:4px}
   .header-title{text-align:left}
@@ -222,6 +240,7 @@ body{background:var(--off);color:var(--text);font-family:'Onest',sans-serif;font
   .crit-row::-webkit-scrollbar{display:none}
   .cpill{flex-shrink:0}
   .container{padding:16px 14px 60px}
+  .dl-btn span{display:none}
 }
 </style>
 </head>
@@ -238,14 +257,18 @@ body{background:var(--off);color:var(--text);font-family:'Onest',sans-serif;font
 </div>
 
 <nav class="main-nav">
-  <button class="mnav-btn on"  onclick="showPage('criteria',this)">Критерии потенциала</button>
-  <button class="mnav-btn"     onclick="showPage('perf',this)">Результативность</button>
-  <button class="mnav-btn"     onclick="showPage('gate',this)">Gate-фильтр</button>
-  <button class="mnav-btn"     onclick="showPage('how',this)">Как думать правильно</button>
-  <button class="mnav-btn"     onclick="showPage('tr',this)">Подготовка к Talent Review</button>
+  <button class="mnav-btn on" onclick="showPage('criteria',this)">Критерии потенциала</button>
+  <button class="mnav-btn"    onclick="showPage('perf',this)">Результативность</button>
+  <button class="mnav-btn"    onclick="showPage('gate',this)">Gate-фильтр</button>
+  <button class="mnav-btn"    onclick="showPage('how',this)">Как думать правильно</button>
+  <button class="mnav-btn"    onclick="showPage('tr',this)">Подготовка к Talent Review</button>
+  <a class="dl-btn" id="dl-link" href="#" download="Оценка_талантов_форма.xlsx">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Скачать форму</span>
+  </a>
 </nav>
 
-<!-- ════════════════════════════ CRITERIA -->
+<!-- CRITERIA -->
 <div class="page on" id="p-criteria">
 <div class="container">
   <div class="hero">
@@ -258,7 +281,7 @@ body{background:var(--off);color:var(--text);font-family:'Onest',sans-serif;font
 </div>
 </div>
 
-<!-- ════════════════════════════ PERFORMANCE -->
+<!-- PERFORMANCE -->
 <div class="page" id="p-perf">
 <div class="container">
   <div class="hero">
@@ -266,94 +289,43 @@ body{background:var(--off);color:var(--text);font-family:'Onest',sans-serif;font
     <div class="hero-title">Как оценить результат</div>
     <div class="hero-sub">Результативность — это «ЧТО» достиг человек. Оцениваем по % выполнения целей: месяц, сезон, квартал или год — смотрим по тому горизонту, который актуален.</div>
   </div>
-
-  <div class="perf-intro">
-    <strong>Три уровня результативности в LIME:</strong> Ниже 80% — низкий, 80–94% — средний, 95% и выше — высокий. Это не субъективная оценка — это математика от выполнения целей. Если цели не были поставлены или не оцифрованы, результативность не может быть «высокой».
-  </div>
-
+  <div class="perf-intro"><strong>Три уровня результативности в LIME:</strong> Ниже 80% — низкий, 80–94% — средний, 95% и выше — высокий. Это не субъективная оценка — это математика от выполнения целей. Если цели не были поставлены или не оцифрованы, результативность не может быть «высокой».</div>
   <div class="perf-scale">
-    <div class="ps-card ps-low">
-      <div class="ps-pct">&lt;80%</div>
-      <div class="ps-label">Низкий</div>
-      <div class="ps-desc">Цели не выполнены. Требует постоянного контроля. Возможен разрыв между усилиями и результатом.</div>
-      <div class="ps-action">→ PIP при системном характере</div>
-    </div>
-    <div class="ps-card ps-mid">
-      <div class="ps-pct">80–94%</div>
-      <div class="ps-label">Средний</div>
-      <div class="ps-desc">Выполняет план. Стабилен и предсказуем. Не всегда превосходит ожидания, но надёжен.</div>
-      <div class="ps-action">→ Поддерживать и развивать</div>
-    </div>
-    <div class="ps-card ps-high">
-      <div class="ps-pct">≥95%</div>
-      <div class="ps-label">Высокий</div>
-      <div class="ps-desc">Стабильно превосходит KPI. Берётся за сложное. Надёжен даже в нестандартных ситуациях.</div>
-      <div class="ps-action">→ Инвестировать в развитие</div>
-    </div>
+    <div class="ps-card ps-low"><div class="ps-pct">&lt;80%</div><div class="ps-label">Низкий</div><div class="ps-desc">Цели не выполнены. Требует постоянного контроля. Возможен разрыв между усилиями и результатом.</div><div class="ps-action">→ PIP при системном характере</div></div>
+    <div class="ps-card ps-mid"><div class="ps-pct">80–94%</div><div class="ps-label">Средний</div><div class="ps-desc">Выполняет план. Стабилен и предсказуем. Не всегда превосходит ожидания, но надёжен.</div><div class="ps-action">→ Поддерживать и развивать</div></div>
+    <div class="ps-card ps-high"><div class="ps-pct">≥95%</div><div class="ps-label">Высокий</div><div class="ps-desc">Стабильно превосходит KPI. Берётся за сложное. Надёжен даже в нестандартных ситуациях.</div><div class="ps-action">→ Инвестировать в развитие</div></div>
   </div>
-
   <div class="perf-block">
-    <div class="perf-block-head">
-      <div class="perf-block-title">Вопросы себе перед оценкой</div>
-      <div class="perf-block-sub">Задай их прежде, чем выставить уровень результативности</div>
-    </div>
-    <div class="perf-block-body">
-      <div class="perf-q-grid">
-        <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Какой % выполнения целей за период — месяц, сезон, квартал?</div><div class="perf-q-note">→ Считаем по факту, не по ощущению</div></div></div>
-        <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Были ли цели поставлены чётко и оцифрованы до начала периода?</div><div class="perf-q-note">→ Если нет — результативность нельзя оценить выше «средней»</div></div></div>
-        <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Была ли динамика стабильной — или один хороший месяц на фоне трёх слабых?</div><div class="perf-q-note">→ Оцениваем тренд, не пик</div></div></div>
-        <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Если были внешние факторы (сезон, изменение рынка, новый продукт) — учёл ли я их при расчёте?</div><div class="perf-q-note">→ Контекст влияет на оценку, но не отменяет её</div></div></div>
-        <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Есть ли задачи или проекты без цифровых KPI — как я оцениваю их выполнение?</div><div class="perf-q-note">→ Качественные цели тоже нужно оцифровать: сделано/не сделано, в срок/нет</div></div></div>
-        <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Мог ли сотрудник повлиять на результат — или это было вне его зоны контроля?</div><div class="perf-q-note">→ Оцениваем только то, на что он реально влиял</div></div></div>
-      </div>
-    </div>
+    <div class="perf-block-head"><div class="perf-block-title">Вопросы себе перед оценкой</div><div class="perf-block-sub">Задай их прежде, чем выставить уровень результативности</div></div>
+    <div class="perf-block-body"><div class="perf-q-grid">
+      <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Какой % выполнения целей за период — месяц, сезон, квартал?</div><div class="perf-q-note">→ Считаем по факту, не по ощущению</div></div></div>
+      <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Были ли цели поставлены чётко и оцифрованы до начала периода?</div><div class="perf-q-note">→ Если нет — результативность нельзя оценить выше «средней»</div></div></div>
+      <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Была ли динамика стабильной — или один хороший месяц на фоне трёх слабых?</div><div class="perf-q-note">→ Оцениваем тренд, не пик</div></div></div>
+      <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Если были внешние факторы (сезон, изменение рынка, новый продукт) — учёл ли я их при расчёте?</div><div class="perf-q-note">→ Контекст влияет на оценку, но не отменяет её</div></div></div>
+      <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Есть ли задачи или проекты без цифровых KPI — как я оцениваю их выполнение?</div><div class="perf-q-note">→ Качественные цели тоже нужно оцифровать: сделано/не сделано, в срок/нет</div></div></div>
+      <div class="perf-q"><div class="perf-q-dot"></div><div><div class="perf-q-txt">Мог ли сотрудник повлиять на результат — или это было вне его зоны контроля?</div><div class="perf-q-note">→ Оцениваем только то, на что он реально влиял</div></div></div>
+    </div></div>
   </div>
-
   <div class="perf-block">
-    <div class="perf-block-head">
-      <div class="perf-block-title">Что учитывать в контексте</div>
-      <div class="perf-block-sub">Факторы, которые влияют на интерпретацию результата</div>
-    </div>
-    <div class="perf-block-body">
-      <div class="perf-context-grid">
-        <div class="ctx-card">
-          <div class="ctx-card-title">Повышает оценку 🔼</div>
-          <div class="ctx-card-items">
-            Цели были амбициозные, выше рынка<br>
-            Сложный период: запуск, кризис, ротация<br>
-            Взял дополнительные задачи поверх KPI<br>
-            Помогал команде выполнить общий результат
-          </div>
-        </div>
-        <div class="ctx-card">
-          <div class="ctx-card-title">Не оправдывает результат 🚫</div>
-          <div class="ctx-card-items">
-            «Все так работают» — не аргумент<br>
-            Личные обстоятельства вне рабочего влияния<br>
-            «Цели были нереалистичные» — нужно было поднять вопрос раньше<br>
-            Отсутствие инструментов без запроса о помощи
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="perf-block-head"><div class="perf-block-title">Что учитывать в контексте</div><div class="perf-block-sub">Факторы, которые влияют на интерпретацию результата</div></div>
+    <div class="perf-block-body"><div class="perf-context-grid">
+      <div class="ctx-card"><div class="ctx-card-title">Повышает оценку 🔼</div><div class="ctx-card-items">Цели были амбициозные, выше рынка<br>Сложный период: запуск, кризис, ротация<br>Взял дополнительные задачи поверх KPI<br>Помогал команде выполнить общий результат</div></div>
+      <div class="ctx-card"><div class="ctx-card-title">Не оправдывает результат 🚫</div><div class="ctx-card-items">«Все так работают» — не аргумент<br>Личные обстоятельства вне рабочего влияния<br>«Цели были нереалистичные» — нужно было поднять вопрос раньше<br>Отсутствие инструментов без запроса о помощи</div></div>
+    </div></div>
   </div>
-
   <div class="perf-block">
-    <div class="perf-block-head">
-      <div class="perf-block-title">Ловушки оценки результативности</div>
-    </div>
+    <div class="perf-block-head"><div class="perf-block-title">Ловушки оценки результативности</div></div>
     <div class="perf-block-body">
-      <div class="perf-trap"><div class="perf-trap-ico">⚠</div><div class="perf-trap-txt"><strong>Симпатия vs результат.</strong> «Он очень старался» — это не результативность. Оцениваем факт, а не усилие. Усилие — в разговоре о развитии.</div></div>
-      <div class="perf-trap"><div class="perf-trap-ico">⚠</div><div class="perf-trap-txt"><strong>Один пик закрывает провал.</strong> Декабрь — блестящий, остальные 11 месяцев — ниже плана. Итог — средний или низкий, не высокий.</div></div>
-      <div class="perf-trap"><div class="perf-trap-ico">⚠</div><div class="perf-trap-txt"><strong>Высокий потенциал = высокий результат.</strong> Нет. Это разные оси. Человек может быть HiPo с текущим средним результатом — например на новой роли или в сложном периоде.</div></div>
-      <div class="perf-trap"><div class="perf-trap-ico">⚠</div><div class="perf-trap-txt"><strong>Нет цифр — значит «высокий».</strong> Нет. Если цели не были оцифрованы — результативность по умолчанию «средняя». Это стимул ставить измеримые цели на следующий период.</div></div>
+      <div class="perf-trap"><div class="perf-trap-ico">⚠</div><div class="perf-trap-txt"><strong>Симпатия vs результат.</strong> «Он очень старался» — это не результативность. Оцениваем факт, а не усилие.</div></div>
+      <div class="perf-trap"><div class="perf-trap-ico">⚠</div><div class="perf-trap-txt"><strong>Один пик закрывает провал.</strong> Декабрь — блестящий, остальные 11 месяцев — ниже плана. Итог — средний или низкий.</div></div>
+      <div class="perf-trap"><div class="perf-trap-ico">⚠</div><div class="perf-trap-txt"><strong>Высокий потенциал = высокий результат.</strong> Нет. Это разные оси. Человек может быть HiPo с текущим средним результатом.</div></div>
+      <div class="perf-trap"><div class="perf-trap-ico">⚠</div><div class="perf-trap-txt"><strong>Нет цифр — значит «высокий».</strong> Нет. Если цели не были оцифрованы — результативность по умолчанию «средняя».</div></div>
     </div>
   </div>
-
 </div>
 </div>
 
-<!-- ════════════════════════════ GATE -->
+<!-- GATE -->
 <div class="page" id="p-gate">
 <div class="container">
   <div class="hero">
@@ -361,167 +333,38 @@ body{background:var(--off);color:var(--text);font-family:'Onest',sans-serif;font
     <div class="hero-title">Gate — ДА или НЕТ</div>
     <div class="hero-sub">Проверяется до любых критериев потенциала. Два параметра: Целостность и Профессионализм. Одно НЕТ — HiPo невозможен вне зависимости от оценок по критериям.</div>
   </div>
-
-  <div class="gate-alert">
-    <div class="gate-alert-ico">🔒</div>
-    <div class="gate-alert-txt"><strong>Gate — это не балл, это бинарный фильтр.</strong> Нельзя поставить «почти да» или «скорее да». Если сомневаетесь — ниже разберём как принять решение при пограничных случаях.</div>
-  </div>
-
-  <!-- ЦЕЛОСТНОСТЬ -->
+  <div class="gate-alert"><div class="gate-alert-ico">🔒</div><div class="gate-alert-txt"><strong>Gate — это не балл, это бинарный фильтр.</strong> Нельзя поставить «почти да» или «скорее да». Если сомневаетесь — ниже разберём как принять решение при пограничных случаях.</div></div>
   <div class="gate-block">
-    <div class="gate-block-head">
-      <div class="gate-block-ico">🧭</div>
-      <div>
-        <div class="gate-block-title">Целостность</div>
-        <div class="gate-block-def">Последователен в словах и поступках. Одинаково честен с людьми вне зависимости от иерархии. Действует этично — даже когда никто не смотрит.</div>
-      </div>
-    </div>
+    <div class="gate-block-head"><div class="gate-block-ico">🧭</div><div><div class="gate-block-title">Целостность</div><div class="gate-block-def">Последователен в словах и поступках. Одинаково честен с людьми вне зависимости от иерархии. Действует этично — даже когда никто не смотрит.</div></div></div>
     <div class="gate-block-body">
-      <div class="flag-col flag-green">
-        <div class="flag-col-head"><div class="flag-dot"></div><div class="flag-col-title">Зелёные флаги — ДА</div></div>
-        <div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Говорит одно и то же разным людям — мне, команде, коллегам из других отделов</div></div>
-        <div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Признаёт ошибки открыто, не перекладывает на других</div></div>
-        <div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Поведение одинаковое — и когда я рядом, и когда меня нет</div></div>
-        <div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Если меняет позицию — объясняет почему, открыто</div></div>
-      </div>
-      <div class="flag-col flag-red">
-        <div class="flag-col-head"><div class="flag-dot"></div><div class="flag-col-title">Красные флаги — НЕТ</div></div>
-        <div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">В кабинете одно, за кофе — другое. Команда слышит иное, чем я</div></div>
-        <div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Скрывает ошибки или узнаём о них от других</div></div>
-        <div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Меняет позицию под давлением аудитории — без объяснения</div></div>
-        <div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Разные стандарты поведения с разными людьми по иерархии</div></div>
-      </div>
+      <div class="flag-col flag-green"><div class="flag-col-head"><div class="flag-dot"></div><div class="flag-col-title">Зелёные флаги — ДА</div></div><div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Говорит одно и то же разным людям — мне, команде, коллегам из других отделов</div></div><div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Признаёт ошибки открыто, не перекладывает на других</div></div><div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Поведение одинаковое — и когда я рядом, и когда меня нет</div></div><div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Если меняет позицию — объясняет почему, открыто</div></div></div>
+      <div class="flag-col flag-red"><div class="flag-col-head"><div class="flag-dot"></div><div class="flag-col-title">Красные флаги — НЕТ</div></div><div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">В кабинете одно, за кофе — другое. Команда слышит иное, чем я</div></div><div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Скрывает ошибки или узнаём о них от других</div></div><div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Меняет позицию под давлением аудитории — без объяснения</div></div><div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Разные стандарты поведения с разными людьми по иерархии</div></div></div>
     </div>
   </div>
-
-  <!-- ПРОФЕССИОНАЛИЗМ -->
   <div class="gate-block">
-    <div class="gate-block-head">
-      <div class="gate-block-ico">🎯</div>
-      <div>
-        <div class="gate-block-title">Профессионализм</div>
-        <div class="gate-block-def">Надёжен в результате, сроках и отношении к людям. Держит слово. Не токсичен.</div>
-      </div>
-    </div>
+    <div class="gate-block-head"><div class="gate-block-ico">🎯</div><div><div class="gate-block-title">Профессионализм</div><div class="gate-block-def">Надёжен в результате, сроках и отношении к людям. Держит слово. Не токсичен.</div></div></div>
     <div class="gate-block-body">
-      <div class="flag-col flag-green">
-        <div class="flag-col-head"><div class="flag-dot"></div><div class="flag-col-title">Зелёные флаги — ДА</div></div>
-        <div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Держит договорённости без напоминаний — или предупреждает заранее о рисках</div></div>
-        <div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Уважителен со всеми — с командой, смежниками, подрядчиками</div></div>
-        <div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Под давлением остаётся собой — не срывается, не токсичен</div></div>
-        <div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Берёт ответственность за результат — даже если что-то пошло не так</div></div>
-      </div>
-      <div class="flag-col flag-red">
-        <div class="flag-col-head"><div class="flag-dot"></div><div class="flag-col-title">Красные флаги — НЕТ</div></div>
-        <div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Договорённости нарушает без предупреждения — узнаём постфактум</div></div>
-        <div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Под давлением становится агрессивным, пассивно-агрессивным или закрытым</div></div>
-        <div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Токсичен с теми, кто ниже по иерархии</div></div>
-        <div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">При провале — ищет виноватых, не решение</div></div>
-      </div>
+      <div class="flag-col flag-green"><div class="flag-col-head"><div class="flag-dot"></div><div class="flag-col-title">Зелёные флаги — ДА</div></div><div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Держит договорённости без напоминаний — или предупреждает заранее о рисках</div></div><div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Уважителен со всеми — с командой, смежниками, подрядчиками</div></div><div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Под давлением остаётся собой — не срывается, не токсичен</div></div><div class="flag-item"><div class="flag-item-ico">✅</div><div class="flag-item-txt">Берёт ответственность за результат — даже если что-то пошло не так</div></div></div>
+      <div class="flag-col flag-red"><div class="flag-col-head"><div class="flag-dot"></div><div class="flag-col-title">Красные флаги — НЕТ</div></div><div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Договорённости нарушает без предупреждения — узнаём постфактум</div></div><div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Под давлением становится агрессивным, пассивно-агрессивным или закрытым</div></div><div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">Токсичен с теми, кто ниже по иерархии</div></div><div class="flag-item"><div class="flag-item-ico">🚩</div><div class="flag-item-txt">При провале — ищет виноватых, не решение</div></div></div>
     </div>
   </div>
-
-  <!-- NUANCE BLOCK -->
   <div class="nuance-block">
     <div class="nuance-title">Пограничные случаи — как решить?</div>
     <div class="nuance-sub">Самые частые ситуации, когда кажется, что «почти да». Нажмите на ситуацию — увидите ответ и логику.</div>
     <div class="nuance-cases">
-
-      <div class="ncase ncase-no" onclick="toggleNcase(this)">
-        <div class="ncase-head">
-          <div class="ncase-verdict">НЕТ</div>
-          <div class="ncase-situation">Соблюдает договорённости, уважителен — но ответственность берёт только под контролем, сам не выходит вперёд</div>
-          <div class="ncase-tag">НЕТ</div>
-          <div class="ncase-chevron">▼</div>
-        </div>
-        <div class="ncase-body">
-          Ответственность «при контроле» — это не ответственность. Gate про Профессионализм требует, чтобы человек <em>сам</em> держал слово и брал результат — не потому что проверяют, а потому что так работает. Это НЕТ. Хорошая новость: это развиваемо. Через 6 месяцев целенаправленной работы можно пересмотреть.
-        </div>
-      </div>
-
-      <div class="ncase ncase-no2" onclick="toggleNcase(this)">
-        <div class="ncase-head">
-          <div class="ncase-verdict">⚠</div>
-          <div class="ncase-situation">90% поведения — всё хорошо, но были 2–3 случая нарушения договорённостей или токсичности под давлением</div>
-          <div class="ncase-tag">Зависит</div>
-          <div class="ncase-chevron">▼</div>
-        </div>
-        <div class="ncase-body">
-          Здесь важен характер этих случаев. Если это были <strong>разовые срывы в экстремальном стрессе</strong> и человек сам признал и исправился — можно поставить ДА с оговоркой и зафиксировать для мониторинга. Если это <strong>системный паттерн</strong> (при давлении всегда так, или с определёнными людьми всегда иначе) — это НЕТ. Ключевой вопрос: это исключение из правила или это правило?
-        </div>
-      </div>
-
-      <div class="ncase ncase-yes" onclick="toggleNcase(this)">
-        <div class="ncase-head">
-          <div class="ncase-verdict">ДА</div>
-          <div class="ncase-situation">Человек открыто признаёт свои ошибки и иногда сомневается публично — это не слабость?</div>
-          <div class="ncase-tag">ДА</div>
-          <div class="ncase-chevron">▼</div>
-        </div>
-        <div class="ncase-body">
-          Это не слабость — это целостность в действии. Публичное признание ошибок и сомнений — один из самых сильных сигналов Gate ДА. Это значит, что человек не подстраивает картину реальности под ожидания аудитории. Gate — про честность, не про уверенность.
-        </div>
-      </div>
-
-      <div class="ncase ncase-no" onclick="toggleNcase(this)">
-        <div class="ncase-head">
-          <div class="ncase-verdict">НЕТ</div>
-          <div class="ncase-situation">Очень высокие результаты, команда его любит — но я видел, как он манипулирует информацией в свою пользу</div>
-          <div class="ncase-tag">НЕТ</div>
-          <div class="ncase-chevron">▼</div>
-        </div>
-        <div class="ncase-body">
-          Результаты и симпатия команды не закрывают Gate. Манипуляция информацией — прямое нарушение Целостности. Особенно опасно на высоком результате: такой человек на следующем уровне будет делать то же самое, но с большим влиянием. Это НЕТ без исключений.
-        </div>
-      </div>
-
-      <div class="ncase ncase-yes" onclick="toggleNcase(this)">
-        <div class="ncase-head">
-          <div class="ncase-verdict">ДА</div>
-          <div class="ncase-situation">Человек новый — я просто мало его знаю, не могу уверенно оценить Gate</div>
-          <div class="ncase-tag">ДА с оговоркой</div>
-          <div class="ncase-chevron">▼</div>
-        </div>
-        <div class="ncase-body">
-          Если нет явных красных флагов — ставьте ДА, но с пометкой «недостаточно наблюдений». Это честная позиция. Зафиксируйте, что нужно больше времени — и пересмотрите на следующем цикле через 3–6 месяцев. Gate ДА не означает «уверен на 100%», он означает «нет оснований для НЕТ».
-        </div>
-      </div>
-
+      <div class="ncase ncase-no" onclick="toggleNcase(this)"><div class="ncase-head"><div class="ncase-verdict">НЕТ</div><div class="ncase-situation">Соблюдает договорённости, уважителен — но ответственность берёт только под контролем, сам не выходит вперёд</div><div class="ncase-tag">НЕТ</div><div class="ncase-chevron">▼</div></div><div class="ncase-body">Ответственность «при контроле» — это не ответственность. Gate про Профессионализм требует, чтобы человек <em>сам</em> держал слово и брал результат — не потому что проверяют, а потому что так работает. Это НЕТ. Хорошая новость: это развиваемо. Через 6 месяцев целенаправленной работы можно пересмотреть.</div></div>
+      <div class="ncase ncase-no2" onclick="toggleNcase(this)"><div class="ncase-head"><div class="ncase-verdict">⚠</div><div class="ncase-situation">90% поведения — всё хорошо, но были 2–3 случая нарушения договорённостей или токсичности под давлением</div><div class="ncase-tag">Зависит</div><div class="ncase-chevron">▼</div></div><div class="ncase-body">Здесь важен характер этих случаев. Если это были <strong>разовые срывы в экстремальном стрессе</strong> и человек сам признал и исправился — можно поставить ДА с оговоркой. Если это <strong>системный паттерн</strong> — это НЕТ.</div></div>
+      <div class="ncase ncase-yes" onclick="toggleNcase(this)"><div class="ncase-head"><div class="ncase-verdict">ДА</div><div class="ncase-situation">Человек открыто признаёт свои ошибки и иногда сомневается публично — это не слабость?</div><div class="ncase-tag">ДА</div><div class="ncase-chevron">▼</div></div><div class="ncase-body">Это не слабость — это целостность в действии. Публичное признание ошибок и сомнений — один из самых сильных сигналов Gate ДА. Gate — про честность, не про уверенность.</div></div>
+      <div class="ncase ncase-no" onclick="toggleNcase(this)"><div class="ncase-head"><div class="ncase-verdict">НЕТ</div><div class="ncase-situation">Очень высокие результаты, команда его любит — но я видел, как он манипулирует информацией в свою пользу</div><div class="ncase-tag">НЕТ</div><div class="ncase-chevron">▼</div></div><div class="ncase-body">Результаты и симпатия команды не закрывают Gate. Манипуляция информацией — прямое нарушение Целостности. Особенно опасно на высоком результате: такой человек на следующем уровне будет делать то же самое, но с большим влиянием. Это НЕТ без исключений.</div></div>
+      <div class="ncase ncase-yes" onclick="toggleNcase(this)"><div class="ncase-head"><div class="ncase-verdict">ДА</div><div class="ncase-situation">Человек новый — я просто мало его знаю, не могу уверенно оценить Gate</div><div class="ncase-tag">ДА с оговоркой</div><div class="ncase-chevron">▼</div></div><div class="ncase-body">Если нет явных красных флагов — ставьте ДА, но с пометкой «недостаточно наблюдений». Gate ДА не означает «уверен на 100%», он означает «нет оснований для НЕТ».</div></div>
     </div>
   </div>
-
-  <!-- % RULE -->
-  <div class="perc-rule">
-    <div class="perc-rule-ico">📊</div>
-    <div class="perc-rule-body">
-      <div class="perc-rule-title">Правило 90%: как думать о «почти»</div>
-      <div class="perc-rule-txt">Если 90% поведения человека соответствует Gate — задайте себе вопрос: <em style="color:rgba(255,255,255,.85)">«Те 10% — это исключение или паттерн?»</em></div>
-      <div class="perc-bar">
-        <div class="pb-no" style="width:10%">10%</div>
-        <div class="pb-yes" style="width:90%">90% соответствует</div>
-      </div>
-      <div class="perc-labels">
-        <span>Красные флаги</span>
-        <span>Зелёные флаги</span>
-      </div>
-      <div style="margin-top:10px;font-size:12px;color:rgba(255,255,255,.55);line-height:1.6">
-        Если те 10% — это <strong style="color:rgba(255,255,255,.8)">системный паттерн</strong> (всегда при давлении, всегда с определёнными людьми, всегда когда нет контроля) — это НЕТ.<br>
-        Если это <strong style="color:rgba(255,255,255,.8)">разовые исключения</strong> с явным признанием и исправлением — это ДА с мониторингом.
-      </div>
-    </div>
-  </div>
-
-  <div class="gate-rule-final">
-    <div class="gate-rule-ico">📌</div>
-    <div class="gate-rule-txt">
-      <strong>Правило фиксации на Talent Review:</strong> Если даёте НЕТ — нужен конкретный факт, не ощущение. «Он ненадёжный» — не основание. «В марте пообещал закрыть к пятнице, не предупредил о срыве, узнали от клиента» — основание. Вас спросят: <em style="color:rgba(255,255,255,.8)">«Факт?»</em>
-    </div>
-  </div>
-
+  <div class="perc-rule"><div class="perc-rule-ico">📊</div><div class="perc-rule-body"><div class="perc-rule-title">Правило 90%: как думать о «почти»</div><div class="perc-rule-txt">Если 90% поведения человека соответствует Gate — задайте себе вопрос: <em style="color:rgba(255,255,255,.85)">«Те 10% — это исключение или паттерн?»</em></div><div class="perc-bar"><div class="pb-no" style="width:10%">10%</div><div class="pb-yes" style="width:90%">90% соответствует</div></div><div class="perc-labels"><span>Красные флаги</span><span>Зелёные флаги</span></div><div style="margin-top:10px;font-size:12px;color:rgba(255,255,255,.55);line-height:1.6">Если те 10% — это <strong style="color:rgba(255,255,255,.8)">системный паттерн</strong> — это НЕТ.<br>Если это <strong style="color:rgba(255,255,255,.8)">разовые исключения</strong> с признанием и исправлением — это ДА с мониторингом.</div></div></div>
+  <div class="gate-rule-final"><div class="gate-rule-ico">📌</div><div class="gate-rule-txt"><strong>Правило фиксации на Talent Review:</strong> Если даёте НЕТ — нужен конкретный факт, не ощущение. «Он ненадёжный» — не основание. «В марте пообещал закрыть к пятнице, не предупредил о срыве, узнали от клиента» — основание.</div></div>
 </div>
 </div>
 
-<!-- ════════════════════════════ HOW TO THINK -->
+<!-- HOW TO THINK -->
 <div class="page" id="p-how">
 <div class="container">
   <div class="hero">
@@ -530,59 +373,56 @@ body{background:var(--off);color:var(--text);font-family:'Onest',sans-serif;font
     <div class="hero-sub">Шесть правил, которые отделяют честную оценку от субъективного впечатления. Прочитай перед тем, как заполнять карту.</div>
   </div>
   <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-body">
-        <div class="step-title">Сначала Gate — полностью</div>
-        <div class="step-desc">Если хотя бы одно НЕТ — критерии потенциала неважны. Оценивать дальше не нужно. HiPo закрыт до явного изменения поведения минимум 6 месяцев.</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-body">
-        <div class="step-title">Результативность и потенциал — разные оси</div>
-        <div class="step-desc">Высокий KPI ≠ высокий потенциал. Это две отдельные оценки. Человек может быть HiPo с текущим средним результатом (например на новой роли) — и наоборот: отличный исполнитель без потенциала к росту. Не смешивайте.</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-body">
-        <div class="step-title">Только 30–90 дней. Не история</div>
-        <div class="step-desc">«Он всегда был таким» — не аргумент. «В феврале он сделал вот что» — аргумент. Оцениваем актуальное поведение. Прошлые заслуги — отдельный разговор о вкладе, не об оценке потенциала.</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <div class="step-body">
-        <div class="step-title">Один конкретный пример на каждую тройку</div>
-        <div class="step-desc">Прежде чем поставить 3 — назовите случай из последних 90 дней. Если не можете — скорее всего это 2, не 3. На Talent Review вас спросят именно об этом примере.</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">5</div>
-      <div class="step-body">
-        <div class="step-title">Проверьте распределение команды</div>
-        <div class="step-desc">Норма: HiPo 3–7%, HiPro 8–12%, Core 50–60%. Если у вас больше 15% HiPo — скорее всего завышенная планка. Если все Core — заниженная. Карта оценки подсветит перекос автоматически.</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">6</div>
-      <div class="step-body">
-        <div class="step-title">Готовьтесь защитить оценку фактами</div>
-        <div class="step-desc">На сессии вас спросят: «Почему 3?» и «Почему Gate НЕТ?». Ответ — не «потому что он хороший» или «что-то не то», а конкретный кейс: <em>поведение → ситуация → последствие для бизнеса</em>. Без этого оценка будет оспорена.</div>
-      </div>
+    <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Сначала Gate — полностью</div><div class="step-desc">Если хотя бы одно НЕТ — критерии потенциала неважны. HiPo закрыт до явного изменения поведения минимум 6 месяцев.</div></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Результативность и потенциал — разные оси</div><div class="step-desc">Высокий KPI ≠ высокий потенциал. Это две отдельные оценки. Не смешивайте.</div></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Только 30–90 дней. Не история</div><div class="step-desc">«Он всегда был таким» — не аргумент. «В феврале он сделал вот что» — аргумент. Оцениваем актуальное поведение.</div></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Один конкретный пример на каждую тройку</div><div class="step-desc">Прежде чем поставить 3 — назовите случай из последних 90 дней. Если не можете — скорее всего это 2, не 3.</div></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">Проверьте распределение команды</div><div class="step-desc">Норма: HiPo 3–7%, HiPro 8–12%, Core 50–60%. Если у вас больше 15% HiPo — скорее всего завышенная планка.</div></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-body"><div class="step-title">Готовьтесь защитить оценку фактами</div><div class="step-desc">На сессии вас спросят: «Почему 3?». Ответ — конкретный кейс: <em>поведение → ситуация → последствие для бизнеса</em>.</div></div></div>
+  </div>
+  <div class="rule-final"><div class="rule-final-ico">⚡</div><div class="rule-final-txt"><strong>Главное правило:</strong> Нет факта из последних 30–90 дней — нет оценки выше 2. Нет факта нарушения — нет Gate НЕТ.</div></div>
+</div>
+</div>
+
+<!-- TR PAGE -->
+<div class="page" id="p-tr">
+<div class="container">
+  <div class="hero">
+    <div class="hero-tag">Линейный руководитель · Talent Review</div>
+    <div class="hero-title">Подготовка к сессии</div>
+    <div class="hero-sub">Приходишь с фактами — не с ощущениями. Твоя оценка уже в карте Excel. Задача — уметь её защитить.</div>
+  </div>
+  <div style="background:var(--white);border-radius:var(--r);overflow:hidden;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.05)">
+    <div style="padding:12px 18px;border-bottom:1px solid var(--mid);background:var(--off)"><div style="font-family:'Unbounded',sans-serif;font-size:13px;font-weight:600;color:var(--text)">Что берёшь с собой</div></div>
+    <div style="padding:14px 18px;display:flex;flex-direction:column;gap:6px" id="cl-items"></div>
+  </div>
+  <div style="background:#FAEEDA;border:.5px solid #F5C87A;border-radius:var(--r);padding:13px 18px;margin-bottom:12px;display:flex;gap:10px;align-items:flex-start">
+    <div style="font-size:16px;flex-shrink:0">⚠</div>
+    <div><div style="font-size:12px;font-weight:600;color:#854F0B;margin-bottom:3px">Потенциал ≠ Результативность</div><div style="font-size:11.5px;color:#6B4800;line-height:1.6">Самая частая ошибка на калибровке — поставить HiPo только потому что человек хорошо работает. Результативность — отдельно (ЧТО сделал). Потенциал — отдельно (КАК думает, учится, влияет).</div></div>
+  </div>
+  <div style="background:var(--white);border-radius:var(--r);overflow:hidden;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.05)">
+    <div style="padding:12px 18px;border-bottom:1px solid var(--mid);background:var(--off)"><div style="font-family:'Unbounded',sans-serif;font-size:13px;font-weight:600;color:var(--text)">Как представлять сотрудника · 2 минуты</div></div>
+    <div style="padding:14px 18px">
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px" id="present-steps"></div>
+      <div style="background:#FFF8F0;border:1px solid #F5DFA0;border-radius:var(--rs);padding:11px 14px;font-size:12px;color:#6B4800;line-height:1.6"><strong>Пример:</strong> «Иванов, менеджер по продажам — Звезда. Стабильно 110%+ два квартала подряд. В январе взял кросс-функциональный проект с IT без назначения — закрыл за 3 недели, сэкономили 400 часов в квартал. Готов к следующей роли через 6–12 месяцев.»</div>
     </div>
   </div>
-  <div class="rule-final">
-    <div class="rule-final-ico">⚡</div>
-    <div class="rule-final-txt">
-      <strong>Главное правило:</strong> Нет факта из последних 30–90 дней — нет оценки выше 2. Нет факта нарушения — нет Gate НЕТ. Высокая оценка без доказательства — это не щедрость, это ошибка системы.
-    </div>
+  <div style="background:var(--white);border-radius:var(--r);overflow:hidden;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.05)">
+    <div style="padding:12px 18px;border-bottom:1px solid var(--mid);background:var(--off)"><div style="font-family:'Unbounded',sans-serif;font-size:13px;font-weight:600;color:var(--text)">Вопросы которые тебе зададут</div></div>
+    <div style="padding:10px 14px;display:flex;flex-direction:column;gap:5px" id="tr-faq"></div>
+  </div>
+  <div style="background:var(--black);border-radius:var(--r);padding:16px 20px;display:flex;gap:12px;align-items:center">
+    <div style="font-size:18px;flex-shrink:0">🔒</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.6">Всё обсуждённое на сессии — конфиденциально. Итоги коммуницируешь лично ты как руководитель.</div>
   </div>
 </div>
 </div>
 
 <script>
+const XLSX_B64='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';
+
+document.getElementById('dl-link').href='data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,'+XLSX_B64;
+
 const C=[
   {id:'c1',icon:'🧠',name:'Обучаемость',weight:25,color:'#185FA5',bg:'#E6F1FB',
    def:'Осваивает новое быстрее других. Меняет поведение после обратной связи. На изменения реагирует «как внедрить?», а не «раньше работало».',
@@ -611,7 +451,7 @@ const C=[
    questions:[{q:'Последняя проблема, с которой пришёл — описал симптом или причину?',note:'«Клиенты жалуются» — симптом. «Процесс создаёт задержку 3 дня» — причина'},{q:'Его решение было устойчивым — или проблема вернулась через месяц?',note:'Повторяющиеся проблемы = симптоматическое лечение'},{q:'Когда объяснял стратегию — задавал вопросы про взаимосвязи или только про свою часть?',note:'«А как это влияет на...?» — системное мышление'},{q:'Предлагал изменения, затрагивающие несколько зон?',note:'Кросс-функциональное мышление = сигнал системности'},{q:'Мог объяснить, почему его задача важна для общего результата?',note:''}],
    yes:['Пришёл с «вот корневая причина и что изменить»','Предложил изменение, решившее сразу три смежных проблемы','Спросил: «Если сделаем X — как повлияет на Y в другом отделе?»','Его решение работает уже 2 месяца — не вернулось'],
    no:['Одну и ту же проблему решает одним способом — и она возвращается','Не видит, как задача влияет на результат компании','На «почему так?» — «не знаю, просто так»','Решает только в своей зоне'],
-   traps:['Системность ≠ умение делать красивые схемы','Умный ≠ системный — разные вещи','Не путайте детальность (внимание к деталям) и системность (видение целого)']},
+   traps:['Системность ≠ умение делать красивые схемы','Умный ≠ системный — разные вещи','Не путайте детальность и системность — внимание к деталям vs видение целого']},
   {id:'c5',icon:'🪞',name:'Осознанность',weight:15,color:'#8B2252',bg:'#FBEAF0',
    def:'Принимает обратную связь без защитной реакции. Чётко знает свои зоны роста. Меняется под влиянием ОС — не только соглашается, а именно меняется.',
    scale:[{n:'1',lbl:'Защищается',desc:'На ОС — оправдания или агрессия. Зоны роста не признаёт. Поведение не меняется после обсуждений.'},{n:'2',lbl:'Принимает формально',desc:'ОС воспринимает без конфликта, но меняется медленно. Зоны роста — под давлением. Изменения непоследовательны.'},{n:'3',lbl:'Растёт активно',desc:'На ОС — интерес: «что именно?». Сам называет зоны роста. Изменения видны через 2–4 недели.'}],
@@ -673,129 +513,28 @@ function showPage(id,el){
   el.classList.add('on');
 }
 function toggleNcase(el){el.classList.toggle('open')}
-initCriteria();
-</script>
 
-<!-- ════════════════════════════ TR PAGE -->
-<div class="page" id="p-tr">
-<div class="container">
-
-  <div class="hero">
-    <div class="hero-tag">Линейный руководитель · Talent Review</div>
-    <div class="hero-title">Подготовка к сессии</div>
-    <div class="hero-sub">Приходишь с фактами — не с ощущениями. Твоя оценка уже в карте Excel. Задача — уметь её защитить.</div>
-  </div>
-
-  <!-- ЧТО ПРИНОСИШЬ -->
-  <div style="background:var(--white);border-radius:var(--r);overflow:hidden;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.05)">
-    <div style="padding:12px 18px;border-bottom:1px solid var(--mid);background:var(--off)">
-      <div style="font-family:'Unbounded',sans-serif;font-size:13px;font-weight:600;color:var(--text)">Что берёшь с собой</div>
-    </div>
-    <div style="padding:14px 18px;display:flex;flex-direction:column;gap:6px" id="cl-items"></div>
-  </div>
-
-  <!-- ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ -->
-  <div style="background:#FAEEDA;border:.5px solid #F5C87A;border-radius:var(--r);padding:13px 18px;margin-bottom:12px;display:flex;gap:10px;align-items:flex-start">
-    <div style="font-size:16px;flex-shrink:0">⚠</div>
-    <div>
-      <div style="font-size:12px;font-weight:600;color:#854F0B;margin-bottom:3px">Потенциал ≠ Результативность</div>
-      <div style="font-size:11.5px;color:#6B4800;line-height:1.6">Самая частая ошибка на калибровке — поставить HiPo только потому что человек хорошо работает. Результативность оценивается отдельно (ЧТО сделал). Потенциал — отдельно (КАК думает, учится, влияет). Звезда = высокий по обоим. Проверь себя перед сессией.</div>
-    </div>
-  </div>
-
-  <!-- ФОРМАТ ПРЕДСТАВЛЕНИЯ -->
-  <div style="background:var(--white);border-radius:var(--r);overflow:hidden;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.05)">
-    <div style="padding:12px 18px;border-bottom:1px solid var(--mid);background:var(--off)">
-      <div style="font-family:'Unbounded',sans-serif;font-size:13px;font-weight:600;color:var(--text)">Как представлять сотрудника · 2 минуты</div>
-    </div>
-    <div style="padding:14px 18px">
-      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px" id="present-steps"></div>
-      <div style="background:#FFF8F0;border:1px solid #F5DFA0;border-radius:var(--rs);padding:11px 14px;font-size:12px;color:#6B4800;line-height:1.6">
-        <strong>Пример:</strong> «Иванов, менеджер по продажам — Звезда. Стабильно 110%+ два квартала подряд. В январе взял кросс-функциональный проект с IT без назначения — закрыл за 3 недели, запустили новый процесс приёмки на 2 недели раньше срока, сэкономили 400 часов в квартал. Обучаемость — после разговора про клиентский подход полностью изменил формат встреч. Готов к следующей роли через 6–12 месяцев.»
-      </div>
-    </div>
-  </div>
-
-  <!-- FAQ -->
-  <div style="background:var(--white);border-radius:var(--r);overflow:hidden;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.05)">
-    <div style="padding:12px 18px;border-bottom:1px solid var(--mid);background:var(--off)">
-      <div style="font-family:'Unbounded',sans-serif;font-size:13px;font-weight:600;color:var(--text)">Вопросы которые тебе зададут</div>
-    </div>
-    <div style="padding:10px 14px;display:flex;flex-direction:column;gap:5px" id="tr-faq"></div>
-  </div>
-
-  <!-- ПРАВИЛО -->
-  <div style="background:var(--black);border-radius:var(--r);padding:16px 20px;display:flex;gap:12px;align-items:center">
-    <div style="font-size:18px;flex-shrink:0">🔒</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.6">Всё обсуждённое на сессии — конфиденциально. Сотрудникам не говоришь «на калибровке решили». Итоги коммуницируешь лично ты как руководитель.</div>
-  </div>
-
-</div>
-</div>
-
-<style>
-.cl-row{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:var(--rs);background:var(--off);cursor:pointer;user-select:none;transition:background .12s}
-.cl-row:hover{background:var(--mid)}
-.cl-row.done{background:#EAF3DE}
-.cl-box{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--mid);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:11px;background:var(--white);transition:all .12s}
-.cl-row.done .cl-box{background:#275010;border-color:#275010;color:white}
-.cl-main{font-size:12px;color:var(--text);line-height:1.5}
-.cl-row.done .cl-main{color:#275010}
-.cl-sub{font-size:11px;color:var(--text2);margin-top:1px}
-.cl-row.done .cl-sub{color:#3B6D11}
-.ps-step{display:flex;gap:9px;padding:8px 12px;background:var(--off);border-radius:var(--rs);align-items:flex-start}
-.ps-num{width:20px;height:20px;border-radius:50%;background:var(--black);color:var(--lime);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:"Unbounded",sans-serif}
-.ps-label{font-size:12px;font-weight:600;color:var(--text);margin-bottom:1px}
-.ps-desc{font-size:11px;color:var(--text2);line-height:1.45}
-.faq-row{border-radius:var(--rs);overflow:hidden;border:.5px solid var(--mid)}
-.faq-q{padding:10px 13px;font-size:12px;font-weight:500;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:var(--white);user-select:none}
-.faq-q:hover{background:var(--off)}
-.faq-ch{font-size:10px;color:var(--muted);transition:transform .2s;flex-shrink:0;margin-left:8px}
-.faq-row.open .faq-ch{transform:rotate(180deg)}
-.faq-a{display:none;padding:9px 13px 12px;font-size:12px;color:var(--text2);line-height:1.6;background:var(--off);border-top:.5px solid var(--mid)}
-.faq-row.open .faq-a{display:block}
-</style>
-
-<script>
 const clData=[
-  {t:'Карта оценки заполнена по всей команде',
-   s:'9-box посчитан автоматически — убедись что заполнено у всех'},
-  {t:'По каждому HiPo и Hidden Gem есть кейс с результатом',
-   s:'Формат: ситуация → что сделал → что это дало бизнесу (цифра, срок, эффект)'},
-  {t:'Результативность оценена по 2–3 периодам, не одному',
-   s:'Квартал, сезон — смотри паттерн, не пик. Один хороший период ≠ стабильность'},
-  {t:'Проверил себя: потенциал не равно результативность',
-   s:'HiPo = высокий по обоим. Отличный исполнитель без потенциала роста — это HiPro, не Звезда'},
-  {t:'Для каждого HiPo готов ответить: готов когда?',
-   s:'Ready now / 6–12 мес / 1–2 года — это ключевой вопрос для Succession'},
-  {t:'Черновик Succession по ключевым и критичным ролям',
-   s:'Критичные — бизнес останавливается без замены (дни). Ключевые — теряем темп (месяцы). Кто ready now / R1 / R2+ на каждую?'},
+  {t:'Карта оценки заполнена по всей команде',s:'9-box посчитан автоматически — убедись что заполнено у всех'},
+  {t:'По каждому HiPo и Hidden Gem есть кейс с результатом',s:'Формат: ситуация → что сделал → что это дало бизнесу (цифра, срок, эффект)'},
+  {t:'Результативность оценена по 2–3 периодам, не одному',s:'Квартал, сезон — смотри паттерн, не пик. Один хороший период ≠ стабильность'},
+  {t:'Проверил себя: потенциал не равно результативность',s:'HiPo = высокий по обоим. Отличный исполнитель без потенциала роста — это HiPro, не Звезда'},
+  {t:'Для каждого HiPo готов ответить: готов когда?',s:'Ready now / 6–12 мес / 1–2 года — это ключевой вопрос для Succession'},
+  {t:'Черновик Succession по ключевым и критичным ролям',s:'Критичные — бизнес останавливается без замены (дни). Кто ready now / R1 / R2+ на каждую?'},
 ];
-
 const psData=[
-  {n:'1',label:'Имя + роль + квадрат',
-   desc:'«Иванов, менеджер по продажам — Звезда»'},
-  {n:'2',label:'Результативность — паттерн за 2–3 периода',
-   desc:'«Стабильно 110%+ два квартала» — не один пик, а тренд'},
-  {n:'3',label:'Кейс на потенциал с Impact',
-   desc:'Ситуация → поведение → что дало бизнесу. Называешь критерий: обучаемость, амбициозность, влияние, системность, осознанность'},
-  {n:'4',label:'Готов когда?',
-   desc:'«К следующей роли готов через 6–12 месяцев» — для HiPo и Hidden Gem обязательно'},
-  {n:'5',label:'Стоп',
-   desc:'Дальше только если спросят'},
+  {n:'1',label:'Имя + роль + квадрат',desc:'«Иванов, менеджер по продажам — Звезда»'},
+  {n:'2',label:'Результативность — паттерн за 2–3 периода',desc:'«Стабильно 110%+ два квартала» — не один пик, а тренд'},
+  {n:'3',label:'Кейс на потенциал с Impact',desc:'Ситуация → поведение → что дало бизнесу. Называешь критерий.'},
+  {n:'4',label:'Готов когда?',desc:'«К следующей роли готов через 6–12 месяцев» — для HiPo обязательно'},
+  {n:'5',label:'Стоп',desc:'Дальше только если спросят'},
 ];
-
 const faqData=[
-  {q:'«Почему 3 по амбициозности?»',
-   a:'Называешь кейс с результатом: когда, что сделал, что дало бизнесу. Нет кейса — честно говоришь «скорректирую на 2».'},
-  {q:'«У тебя 20% HiPo — много»',
-   a:'Если завысил — пересматриваешь с аргументами по каждому. Если уверен — называешь факты. Норма 3–7%, выше требует доказательств.'},
-  {q:'«Я работал с ним на проекте и вижу иначе»',
-   a:'Слушаешь. Это ценно — кросс-функциональный взгляд точнее одного наблюдателя. Если аргумент весомый — меняешь. Если нет — держишь позицию со своими фактами.'},
-  {q:'«Кто твой преемник на ключевую роль?»',
-   a:'Называешь из Succession с горизонтом готовности. Нет ready now — честно: «R1 — имя, горизонт 12 месяцев». Дыра — тоже фиксируется, это важная информация.'},
-  {q:'«Он HiPo или просто хорошо работает?»',
-   a:'Объясняешь разницу фактами: результативность высокая — это одно. Потенциал — приводишь кейс на обучаемость или влияние. Без кейса на потенциал — это HiPro, не HiPo.'},
+  {q:'«Почему 3 по амбициозности?»',a:'Называешь кейс с результатом: когда, что сделал, что дало бизнесу. Нет кейса — честно говоришь «скорректирую на 2».'},
+  {q:'«У тебя 20% HiPo — много»',a:'Если завысил — пересматриваешь с аргументами по каждому. Если уверен — называешь факты. Норма 3–7%, выше требует доказательств.'},
+  {q:'«Я работал с ним на проекте и вижу иначе»',a:'Слушаешь. Это ценно — кросс-функциональный взгляд точнее одного наблюдателя. Если аргумент весомый — меняешь. Если нет — держишь позицию со своими фактами.'},
+  {q:'«Кто твой преемник на ключевую роль?»',a:'Называешь из Succession с горизонтом готовности. Нет ready now — честно: «R1 — имя, горизонт 12 месяцев».'},
+  {q:'«Он HiPo или просто хорошо работает?»',a:'Объясняешь разницу фактами: результативность высокая — это одно. Потенциал — приводишь кейс на обучаемость или влияние. Без кейса на потенциал — это HiPro, не HiPo.'},
 ];
 
 const clC=document.getElementById('cl-items');
@@ -806,12 +545,8 @@ clData.forEach((item,i)=>{
   d.onclick=()=>{d.classList.toggle('done');document.getElementById('clb'+i).textContent=d.classList.contains('done')?'✓':'';};
   clC.appendChild(d);
 });
-
 const psC=document.getElementById('present-steps');
-psData.forEach(s=>{
-  psC.innerHTML+=`<div class="ps-step"><div class="ps-num">${s.n}</div><div><div class="ps-label">${s.label}</div><div class="ps-desc">${s.desc}</div></div></div>`;
-});
-
+psData.forEach(s=>{psC.innerHTML+=`<div class="ps-step"><div class="ps-num">${s.n}</div><div><div class="ps-label">${s.label}</div><div class="ps-desc">${s.desc}</div></div></div>`;});
 const faqC=document.getElementById('tr-faq');
 faqData.forEach(f=>{
   const d=document.createElement('div');
@@ -819,7 +554,8 @@ faqData.forEach(f=>{
   d.innerHTML=`<div class="faq-q" onclick="this.parentElement.classList.toggle('open')">${f.q}<span class="faq-ch">▼</span></div><div class="faq-a">${f.a}</div>`;
   faqC.appendChild(d);
 });
-</script>
 
+initCriteria();
+</script>
 </body>
 </html>
